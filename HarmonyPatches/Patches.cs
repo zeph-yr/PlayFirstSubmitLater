@@ -25,13 +25,12 @@ namespace PlayFirst
         {
             Logger.log.Debug("In Patch Postfix");
 
+            CancelScore.audiocontroller = __instance;
             Logger.log.Debug("Song Length: " + __instance.songLength.ToString());
             Logger.log.Debug("Song EndTime: " + __instance.songEndTime.ToString());
             Logger.log.Debug("Song Time: " + __instance.songTime.ToString());
 
-            CancelScore.audiocontroller = __instance;
-            CancelScore.pausetime = __instance.songEndTime - 0.2f;
-
+            CancelScore.pausetime = __instance.songEndTime - 1f;
             Logger.log.Debug(CancelScore.pausetime.ToString());
 
             Logger.log.Debug("End Patch Postfix");
@@ -52,8 +51,7 @@ namespace PlayFirst
         }*/
     }
 
-    /*[HarmonyPatch(typeof(SongController))]
-    [HarmonyPatch("PauseSong")]
+    /*[HarmonyPatch(typeof(SongController)), "Init"]
     class SongControllerPatch
     {
         static void Postfix(SongController __instance) //Apparently you cant use Postfix

@@ -62,9 +62,9 @@ namespace PlayFirst
 
         public void Update()
         {
-            Logger.log.Debug("In Update!");
+            //Logger.log.Debug("In Update!");
 
-            if (audiocontroller != null)
+            if (audiocontroller != null && songcontroller != null)
             {
                 Logger.log.Debug("Current:" + audiocontroller.songTime.ToString());
 
@@ -73,7 +73,8 @@ namespace PlayFirst
                     if (audiocontroller.songTime >= pausetime)
                     {
                         Logger.log.Debug("#####################");
-                        //songcontroller.PauseSong();
+                        songcontroller.PauseSong();
+                        Logger.log.Debug("Song Paused");
                     }
 
                     else if (audiocontroller.songTime >= pausetime + 0.2f)

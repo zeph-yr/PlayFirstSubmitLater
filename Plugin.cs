@@ -33,6 +33,8 @@ namespace PlayFirst
 
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
+            BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
+
             //BS_Utils.Utilities.BSEvents.menuSceneActive += BSEvents_menuSceneActive;
             //BS_Utils.Utilities.BSEvents.gameSceneActive += BSEvents_gameSceneActive;
 
@@ -46,6 +48,14 @@ namespace PlayFirst
             GameObject.DontDestroyOnLoad(cancelscore);
         }
 
+        private void BSEvents_menuSceneLoaded()
+        {
+            if (CancelScore.audiocontroller != null)
+            {
+                CancelScore.audiocontroller = null;
+                Logger.log.Debug("audio controll back to null");
+            }
+        }
 
         private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
         {
@@ -66,7 +76,12 @@ namespace PlayFirst
             {
                 Logger.log.Debug("Submit Later enabled");
 
-                //CancelScore.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().First();
+                CancelScore.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
+
+                if (CancelScore.songcontroller != null)
+                {
+                    Logger.log.Debug("songcontroller found!!!!");
+                }
                 //CancelScore.audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().First();
                 /*
                 if (cancelscore.songcontroller != null)
@@ -94,6 +109,9 @@ namespace PlayFirst
                 Logger.log.Debug("NF Protection kicked in");
             }
         }
+
+
+
 
         [OnExit]
         public void OnApplicationQuit()
