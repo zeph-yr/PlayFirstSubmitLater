@@ -76,6 +76,7 @@ namespace PlayFirst
             {
                 Logger.log.Debug("Submit Later enabled");
 
+                CancelScore.paused_yet = false;
                 CancelScore.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
 
                 if (CancelScore.songcontroller != null)

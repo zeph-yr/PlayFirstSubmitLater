@@ -7,14 +7,17 @@ using BeatSaberMarkupLanguage;
 using HarmonyLib;
 using System.Reflection;
 
+
 namespace PlayFirst
 {
     public class CancelScore : MonoBehaviour
     {
         public static float pausetime = 0.1f;
+        public static bool paused_yet = false;
 
         public static AudioTimeSyncController audiocontroller;
         public static SongController songcontroller;
+        //public static IAudioTimeSource songAudio;
 
         /*public void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene prevScene, UnityEngine.SceneManagement.Scene nextScene)
         {
@@ -70,11 +73,16 @@ namespace PlayFirst
 
                 if (Config.UserConfig.mod_enabled)
                 {
-                    if (audiocontroller.songTime >= pausetime)
+                    if (audiocontroller.songTime >= pausetime && !paused_yet)
                     {
                         Logger.log.Debug("#####################");
                         songcontroller.PauseSong();
                         Logger.log.Debug("Song Paused");
+                        paused_yet = true;
+                        
+                        //songAudio = audiocontroller.GetField<IAudioTimeSource, AudioTimeSyncController>("_audioSource");
+                        //Logger.log.Debug(songAudio.songTime.ToString());
+
                     }
 
                     else if (audiocontroller.songTime >= pausetime + 0.2f)
