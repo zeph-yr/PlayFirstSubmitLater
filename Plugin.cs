@@ -11,7 +11,12 @@ namespace PlayFirst
     [Plugin(RuntimeOptions.SingleStartInit)]
     public class Plugin
     {
+        public const string HarmonyId = "com.Zephyr.PlayFirst";
+        public static Harmony harmony = new Harmony(HarmonyId);
+
         public static bool disable_this_run = false;
+        public static CancelScore cancelscore;
+
 
         [Init]
         public void Init(IPA.Logging.Logger logger)
@@ -23,14 +28,24 @@ namespace PlayFirst
         public void OnApplicationStart()
         {
             Logger.log.Debug("PlayFirst On Start");
+
             Config.Read();
 
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
+            //BS_Utils.Utilities.BSEvents.menuSceneActive += BSEvents_menuSceneActive;
+            //BS_Utils.Utilities.BSEvents.gameSceneActive += BSEvents_gameSceneActive;
 
             BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("PlayFirst", "PlayFirst.modifierUI.bsml", ModifierUI.instance);
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
+
+            GameObject cancelscore = new GameObject("CancelScore");
+            cancelscore.AddComponent<CancelScore>();
+            GameObject.DontDestroyOnLoad(cancelscore);
         }
+
 
         private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
         {
@@ -39,20 +54,33 @@ namespace PlayFirst
 
         private void BSEvents_gameSceneLoaded()
         {
-            /*
-            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && !BS_Utils.Gameplay.Gamemode.IsIsolatedLevel
-                && Config.UserConfig.enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard && BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings == null;
-            if(WillOverride && false) // false is from "!Config.User.Config.dontForceNJS"
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("JDFixer");
-            */
-
             Logger.log.Debug("In Map");
 
-            if (Config.UserConfig.mod_enabled && Config.UserConfig.neversubmit_enabled)
+            if (Config.UserConfig.neversubmit_enabled)
             {
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("PFSL All Submissions Disabled");
+                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("All Submission Disabled");
                 Logger.log.Debug("All submission disabled");
             }
+
+            else if (Config.UserConfig.mod_enabled)
+            {
+                Logger.log.Debug("Submit Later enabled");
+
+                //CancelScore.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().First();
+                //CancelScore.audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().First();
+                /*
+                if (cancelscore.songcontroller != null)
+                {
+                    Logger.log.Debug(CancelScore.songcontroller.ToString());
+                }
+
+                if (cancelscore.audiocontroller!= null)
+                {
+                    Logger.log.Debug(CancelScore.audiocontroller.songTime.ToString());
+                }*/
+            }
+
+            Logger.log.Debug("End GameSceneLoaded");
         }
 
         private void BSEvents_energyReachedZero()
@@ -74,3 +102,31 @@ namespace PlayFirst
         }
     }
 }
+
+//###########################################################################################
+/*private void BSEvents_menuSceneActive()
+{
+    Logger.log.Debug("MenuScene Active");
+    Logger.log.Debug(disable_this_run.ToString());
+
+    if (Config.UserConfig.mod_enabled)
+    {
+        Logger.log.Debug("Setting up Result UI");
+        ResultUI.instance.Setup();
+        Logger.log.Debug("Done setting up Result UI");
+    }
+
+    Logger.log.Debug("MenuScene After Result UI");
+    Logger.log.Debug(disable_this_run.ToString());
+
+    if (disable_this_run)
+    {
+        BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("PFSL Cancelled");
+        Logger.log.Debug("MenuScene disable score done");
+    }
+
+    // Reset for next run
+    disable_this_run = false;
+    Logger.log.Debug(disable_this_run.ToString());
+    Logger.log.Debug("MenuScene done");
+}*/

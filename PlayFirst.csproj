@@ -104,6 +104,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CancelScore.cs" />
+    <Compile Include="HarmonyPatches\Patches.cs" />
+    <Compile Include="ResultUI.cs" />
     <Compile Include="ReflectionUtil.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Config.cs" />
@@ -117,6 +120,7 @@
   <ItemGroup>
     <None Include="PlayFirst.csproj.user" Condition="Exists('PlayFirst.csproj.user')" />
     <EmbeddedResource Include="modifierUI.bsml" />
+    <EmbeddedResource Include="resultUI.bsml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BeatSaberModdingTools.Tasks">
