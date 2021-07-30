@@ -32,17 +32,15 @@ namespace PlayFirst
             {
                 //Logger.log.Debug("Current:" + audiocontroller.songTime.ToString());
 
-                if (Config.UserConfig.mod_enabled)
+                if (Config.UserConfig.mod_enabled && !paused_yet)
                 {
-                    if (audiocontroller.songTime >= pausetime && !paused_yet)
+                    if (audiocontroller.songTime >= pausetime)
                     {
                         //Logger.log.Debug("#####################");
                         songcontroller.PauseSong();
                         paused_yet = true;
 
                         //Logger.log.Debug("Song Paused");
-
-                        //CancelButtonViewController.Instance.ShowButton();
                     }
 
                     // Debug:

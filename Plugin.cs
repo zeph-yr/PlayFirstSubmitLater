@@ -44,12 +44,14 @@ namespace PlayFirst
 
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-            //CancelButtonViewController.Instance.ShowButton(); // This doesn't work: Always results in error
+            // This doesn't work: Always results in error
 
             //GameObject cancelscore = new GameObject("CancelScore");
             //cancelscore.AddComponent<CancelScore>();
             //GameObject.DontDestroyOnLoad(cancelscore);
         }
+
+        
 
         // Destroy game object when reaching menu (finished is not enough because what if you quit to menu without finishing?
         private void BSEvents_LevelFinished(object sender, BS_Utils.Utilities.LevelFinishedEventArgs e)
