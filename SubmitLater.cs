@@ -21,9 +21,11 @@ namespace PlayFirst
 
         public void Awake()
         {
+            // Putting this in Plugin.OnApplicationStart crashes it (No button comes up ever)
             CancelButtonViewController.Instance.ShowButton();
         }
         
+        // Auto Pause at very end of map so you can decide
         public void Update()
         {
             //Logger.log.Debug("In Update!");
@@ -42,14 +44,15 @@ namespace PlayFirst
 
                         //Logger.log.Debug("Song Paused");
                     }
-
-                    // Debug:
-                    //else if (audiocontroller.songTime >= pausetime + 0.2f)
-                    //{
-                    //    Logger.log.Debug("#############################################################");
-                    //}
+                    //else
+                    //    Logger.log.Debug("In Song: Timing");
                 }
+                //else
+                //    Logger.log.Debug("Not timing"); // Tested: it's not running in menu after object destroyed :)
             }
         }
     }
 }
+
+// Notes:
+// Maps with blocks outside the map. is that songlength or song end time?

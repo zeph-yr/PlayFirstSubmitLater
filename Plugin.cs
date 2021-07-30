@@ -33,32 +33,28 @@ namespace PlayFirst
 
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
-
-            //BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh
-
-
-            BS_Utils.Utilities.BSEvents.LevelFinished += BSEvents_LevelFinished;
+            BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
 
             BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("PlayFirst", "PlayFirst.modifierUI.bsml", ModifierUI.instance);
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
-            // This doesn't work: Always results in error
-
-            //GameObject cancelscore = new GameObject("CancelScore");
-            //cancelscore.AddComponent<CancelScore>();
-            //GameObject.DontDestroyOnLoad(cancelscore);
+            // Notes: Creating this here crashes BS Utils and causes other errors
+            //submitlater = new GameObject("SubmitLater");
+            //submitlater.AddComponent<SubmitLater>();
+            //GameObject.DontDestroyOnLoad(submitlater);
         }
 
-        
-
-        // Destroy game object when reaching menu (finished is not enough because what if you quit to menu without finishing?
-        private void BSEvents_LevelFinished(object sender, BS_Utils.Utilities.LevelFinishedEventArgs e)
+        // Destroy GameObject when back to menu so it's not running every frame of the menu
+        private void BSEvents_menuSceneLoaded()
         {
+            Logger.log.Debug("In Menu");
+
             if (submitlater != null)
             {
                 GameObject.Destroy(submitlater);
+                Logger.log.Debug("Game Object Destroyed");
             }
         }
 
@@ -71,15 +67,16 @@ namespace PlayFirst
         {
             //Logger.log.Debug("In Map");
 
-            disable_run = false; // Pause Menu state. Always set to false at start of any map.
-            //CancelButtonViewController.Instance.SetVisibility(false); // For Restart from Pause Menu
+            // Pause Menu state. Always set to false at start of any map.
+            disable_run = false;
 
             if (Config.UserConfig.neversubmit_enabled)
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("All Submission Disabled");
                 disable_run = true; // Pause Menu state
-                
+
                 //Logger.log.Debug("All submission disabled");
+                return;
             }
 
             // If all disabled, don't bother with this :)

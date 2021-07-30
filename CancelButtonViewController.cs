@@ -26,6 +26,7 @@ namespace PlayFirst
             BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
         }
 
+        // Not to sure of the purpose of this
         private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
         {
             SetVisibility(false);
@@ -53,15 +54,16 @@ namespace PlayFirst
                 BS_Utils.Utilities.BSEvents.gameSceneLoaded += GameSceneLoaded;
                 BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
 
-                //BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh += BSEvents_lateMenuSceneLoadedFresh;
+                // Not sure what this is for tbh...
                 //BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
 
                 // Notes: These ones don't work to hide the Button
                 //BS_Utils.Utilities.BSEvents.menuSceneLoadedFresh += BSEvents_menuSceneLoadedFresh;
                 //BS_Utils.Utilities.BSEvents.menuSceneActive += BSEvents_menuSceneActive;
+                //BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh += BSEvents_lateMenuSceneLoadedFresh;
             }
 
-            cancelbutton_screen.gameObject.SetActive(true);
+            cancelbutton_screen.gameObject.SetActive(true); // Must be true before update text
             cancelbutton_view.UpdateText();
             cancelbutton_screen.gameObject.SetActive(false);
         }
@@ -81,6 +83,7 @@ namespace PlayFirst
 
         public void SetVisibility(bool visibility)
         {
+            // Not sure purpose of this
             /*if (cancelbutton_screen != null)
             {
                 cancelbutton_screen.gameObject.SetActive(visibility);
@@ -111,14 +114,11 @@ namespace PlayFirst
             SetVisibility(false);
         }
 
-        // Return to Menu from Pause Menu
-        private void BSEvents_lateMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
-        {
-            SetVisibility(false);
-        }
+        // For Return to Menu from Pause Menu
         private void BSEvents_menuSceneLoaded()
         {
             SetVisibility(false);
+            //SubmitLater.paused_yet = true;
         }
     }
 }
