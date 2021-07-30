@@ -6,34 +6,22 @@ namespace PlayFirst
     [HarmonyPatch("StartSong")]
     class AudioTimeSyncControllerPatch
     {
-        /*static void Prefix(AudioTimeSyncController __instance)
-        {
-            Logger.log.Debug("In Patch Prefix");
-
-            Logger.log.Debug("Song Length: " + __instance.songLength.ToString());
-            Logger.log.Debug("Song EndTime: " + __instance.songEndTime.ToString());
-            Logger.log.Debug("Song Time: " + __instance.songTime.ToString());
-
-            CancelScore.audiocontroller = __instance;
-            //CancelScore.songendtime = __instance.songEndTime;
-            //CancelScore.songlength = __instance.songLength;
-
-            Logger.log.Debug("End Patch Prefix");
-        }*/
-
         static void Postfix(AudioTimeSyncController __instance)
         {
-            Logger.log.Debug("In Patch Postfix");
+            if (Plugin.submitlater != null)
+            {
+                //Logger.log.Debug("In Patch Postfix");
 
-            CancelScore.audiocontroller = __instance;
-            Logger.log.Debug("Song Length: " + __instance.songLength.ToString());
-            Logger.log.Debug("Song EndTime: " + __instance.songEndTime.ToString());
-            Logger.log.Debug("Song Time: " + __instance.songTime.ToString());
+                SubmitLater.audiocontroller = __instance;
+                //Logger.log.Debug("Song Length: " + __instance.songLength.ToString());
+                //Logger.log.Debug("Song EndTime: " + __instance.songEndTime.ToString());
+                //Logger.log.Debug("Song Time: " + __instance.songTime.ToString());
 
-            CancelScore.pausetime = __instance.songEndTime - 1f;
-            Logger.log.Debug(CancelScore.pausetime.ToString());
+                SubmitLater.pausetime = __instance.songEndTime - 0.5f;
+                //Logger.log.Debug(SubmitLater.pausetime.ToString());
+            }
 
-            Logger.log.Debug("End Patch Postfix");
+            //Logger.log.Debug("End Patch Postfix");
         }
 
         /*static void Postfix(AudioTimeSyncController __instance)

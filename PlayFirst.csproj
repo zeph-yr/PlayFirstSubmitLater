@@ -108,7 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CancelScore.cs" />
+    <Compile Include="SubmitLater.cs" />
     <Compile Include="CancelButtonViewController.cs" />
     <Compile Include="CancelButtonView.cs" />
     <Compile Include="HarmonyPatches\Patches.cs" />

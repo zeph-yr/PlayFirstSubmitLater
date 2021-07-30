@@ -32,10 +32,12 @@ namespace PlayFirst
             if (Plugin.disable_run)
             {
                 cancelbutton_text.text = "Score Disabled";
+                //cancelbutton_text.color = UnityEngine.Color.red;
             }
             else
             {
                 cancelbutton_text.text = "Score Will Submit";
+                //cancelbutton_text.color = UnityEngine.Color.green;
             }
         }
     }

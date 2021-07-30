@@ -1,13 +1,14 @@
 ﻿using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.FloatingScreen;
 using UnityEngine;
-using BS_Utils.Utilities;
+using BS_Utils;
 
 namespace PlayFirst
 {
     class CancelButtonViewController
     {
         private static CancelButtonViewController _instance;
+        
         public static CancelButtonViewController Instance
         {
             get
@@ -22,7 +23,7 @@ namespace PlayFirst
         protected CancelButtonView cancelbutton_view;
         protected CancelButtonViewController()
         {
-            BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
+            BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
         }
 
         private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
@@ -44,11 +45,17 @@ namespace PlayFirst
                 cancelbutton_view = BeatSaberUI.CreateViewController<CancelButtonView>();
                 cancelbutton_view.ParentCoordinator = this;
                 cancelbutton_screen.SetRootViewController(cancelbutton_view, HMUI.ViewController.AnimationType.None);
-                AttachEvents();
+
+                BS_Utils.Utilities.BSEvents.songPaused += SongPaused;
+                BS_Utils.Utilities.BSEvents.songUnpaused += SongUnpaused;
+                //BS_Utils.Utilities.BSEvents.gameSceneLoaded += GameSceneLoaded;
+                //BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh += BSEvents_lateMenuSceneLoadedFresh;
             }
+
             cancelbutton_screen.gameObject.SetActive(true);
             cancelbutton_view.UpdateText();
         }
+
 
         public FloatingScreen CreateFloatingScreen()
         {
@@ -57,26 +64,32 @@ namespace PlayFirst
                 new Vector3(-1f, 0.6f, 2f),
                 new Quaternion(25f, 330f, 6.5f, 180f));
 
-            //screen.HandleReleased -= OnRelease;
-            //screen.HandleReleased += OnRelease;
-
             GameObject.DontDestroyOnLoad(screen.gameObject);
             return screen;
         }
 
-        private void AttachEvents()
+        public void CreateButton() 
         {
-            BSEvents.songPaused += OnGamePause;
-            BSEvents.songUnpaused += OnGameResume;
+            Logger.log.Debug("Create Button");
+
+            cancelbutton_screen = CreateFloatingScreen();
+            cancelbutton_view = BeatSaberUI.CreateViewController<CancelButtonView>();
+            cancelbutton_view.ParentCoordinator = this;
+            cancelbutton_screen.SetRootViewController(cancelbutton_view, HMUI.ViewController.AnimationType.None);
+
+            //BS_Utils.Utilities.BSEvents.songPaused += SongPaused;
+            //BS_Utils.Utilities.BSEvents.songUnpaused += SongUnpaused;
+            //BS_Utils.Utilities.BSEvents.gameSceneLoaded += GameSceneLoaded;
+            //BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh += BSEvents_lateMenuSceneLoadedFresh;
+
+            cancelbutton_screen.gameObject.SetActive(false);
+            cancelbutton_view.UpdateText();
         }
 
-        /*private void OnRelease(object _, FloatingScreenHandleEventArgs posRot)
-        {
-            Vector3 newPos = posRot.Position;
-            Quaternion newRot = posRot.Rotation;
-        }*/
 
-        private void SetVisibility(bool visibility)
+
+
+        public void SetVisibility(bool visibility)
         {
             if (cancelbutton_screen != null)
             {
@@ -88,25 +101,39 @@ namespace PlayFirst
             }
         }
 
-        private void OnGamePause()
+        
+        private void SongPaused()
         {
             SetVisibility(true);
             //cancelbutton_view.UpdateText();
             //cancelbutton_screen.gameObject.SetActive(true);
             
         }
-        private void OnGameResume()
+        private void SongUnpaused()
         {
             SetVisibility(false);
-            //cancelbutton_screen.gameObject.SetActive(false);
-            //cancelbutton_view.UpdateText();
         }
+
+        // For Restart from Pause Menu
+        private void GameSceneLoaded() 
+        {
+            SetVisibility(false);
+        }
+
+        // Return to Menu from Pause Menu
+        private void BSEvents_lateMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
+        {
+            SetVisibility(false);
+        }
+
+
 
         public void Cleanup()
         {
-            BSEvents.earlyMenuSceneLoadedFresh -= BSEvents_earlyMenuSceneLoadedFresh;
-            BSEvents.songPaused -= OnGamePause;
-            BSEvents.songUnpaused -= OnGameResume;
+            BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh -= BSEvents_earlyMenuSceneLoadedFresh;
+            BS_Utils.Utilities.BSEvents.songPaused -= SongPaused;
+            BS_Utils.Utilities.BSEvents.songUnpaused -= SongUnpaused;
+            BS_Utils.Utilities.BSEvents.gameSceneLoaded -= GameSceneLoaded;
 
             if (cancelbutton_screen != null)
             {
