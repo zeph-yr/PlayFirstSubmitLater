@@ -1,6 +1,0 @@
-﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-	<vertical anchor-min-x="1" anchor-pos-x="-15" vertical-fit="PreferredSize">
-		<page-button interactable="~upInteractable" id="upButton" direction='Up' on-click="up-pressed" pref-width='10'></page-button>
-		<page-button interactable="~downInteractable" id="downButton" direction='Down' on-click="down-pressed" pref-width='10'></page-button>
-	</vertical>
-</bg>

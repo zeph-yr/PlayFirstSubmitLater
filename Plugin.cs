@@ -14,9 +14,8 @@ namespace PlayFirst
         public const string HarmonyId = "com.Zephyr.PlayFirst";
         public static Harmony harmony = new Harmony(HarmonyId);
 
-        public static bool disable_this_run = false;
         public static CancelScore cancelscore;
-
+        public static bool disable_run = false;
 
         [Init]
         public void Init(IPA.Logging.Logger logger)
@@ -48,6 +47,8 @@ namespace PlayFirst
             GameObject.DontDestroyOnLoad(cancelscore);
         }
 
+        // Not sure if this is doing anything useful.
+        // TODO: Would be nice to make it stop running all of update in the menu scenes and when Submit Later is not enabled
         private void BSEvents_menuSceneLoaded()
         {
             if (CancelScore.audiocontroller != null)
@@ -79,24 +80,14 @@ namespace PlayFirst
                 CancelScore.paused_yet = false;
                 CancelScore.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
 
-                if (CancelScore.songcontroller != null)
-                {
-                    Logger.log.Debug("songcontroller found!!!!");
-                }
-                //CancelScore.audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().First();
-                /*
-                if (cancelscore.songcontroller != null)
-                {
-                    Logger.log.Debug(CancelScore.songcontroller.ToString());
-                }
-
-                if (cancelscore.audiocontroller!= null)
-                {
-                    Logger.log.Debug(CancelScore.audiocontroller.songTime.ToString());
-                }*/
+                // Debug:
+                //if (CancelScore.songcontroller != null)
+                //{
+                //    Logger.log.Debug("songcontroller found!!!!");
+                //}
             }
 
-            Logger.log.Debug("End GameSceneLoaded");
+            //Logger.log.Debug("End GameSceneLoaded");
         }
 
         private void BSEvents_energyReachedZero()
@@ -106,7 +97,7 @@ namespace PlayFirst
             // No need to check if NF is on, same as just disabling submission whenever player fails LOL
             if (Config.UserConfig.mod_enabled && Config.UserConfig.nfprotection_enabled)
             {
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("PFSL NF Protection");
+                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("NF Protection");
                 Logger.log.Debug("NF Protection kicked in");
             }
         }

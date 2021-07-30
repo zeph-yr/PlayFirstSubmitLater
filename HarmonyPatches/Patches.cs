@@ -63,17 +63,17 @@ namespace PlayFirst
         }
     }*/
 
-    /*[HarmonyPatch(typeof(PauseMenuManager))]
+    [HarmonyPatch(typeof(PauseMenuManager))]
     [HarmonyPatch("ShowMenu")]
     class PauseMenuManagerPatch
     {
         static void Postfix(PauseMenuManager __instance)
         {
-            if (!AutoPauseStealthController.IsMultiplayer)
+            /*if (!AutoPauseStealthController.IsMultiplayer)
             {
                 AutoPauseStealthController.instance.OnPauseShowMenu();
             }
-            return;
+            return;*/
         }
-    }*/
+    }
 }

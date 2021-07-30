@@ -7,10 +7,7 @@ using System.Reflection;
 using UnityEngine;
 using TMPro;
 using System;
-//using UnityEngine.Networking;
-//using PlayFirstSubmitLater.Utilities;
 using Newtonsoft.Json.Linq;
-//using Steamworks;
 using HMUI;
 using UnityEngine.UI;
 using BeatSaberMarkupLanguage.Components;
@@ -18,28 +15,29 @@ using BeatSaberMarkupLanguage.Attributes;
 
 namespace PlayFirst
 {
-    public class ResultUI : NotifiableSingleton<ResultUI>
+    public class PauseUI : NotifiableSingleton<PauseUI>
     {
-        /*
-        [Serializable]
-        private struct Payload
+        [UIComponent("checkbox")]
+        public Toggle checkbox;
+        [UIValue("checkbox-val")]
+        public bool Check
         {
-            public string steamID;
-            public string ticket;
-            public int direction;
+            get => Config.UserConfig.mod_enabled;
+            set
+            {
+                Config.UserConfig.mod_enabled = value;
+            }
         }
-        */
+        [UIAction("checkbox-click")]
+        void checkboxclick(bool value)
+        {
+            Check = value;
+        }
 
-        //internal IBeatmapLevel _lastSong;
-        //private OpenVRHelper openVRHelper;
-        //private bool _firstVote;
-        //private Song _lastBeatSaverSong;
-        //private string userAgent = $"BeatSaverVoting/{Assembly.GetExecutingAssembly().GetName().Version}";
+        //<page-button interactable="~upInteractable" id="upButton" direction='Up' on-click="up-pressed" pref-width='10'></page-button>
+		//<page-button interactable = "~downInteractable" id="downButton" direction='Down' on-click="down-pressed" pref-width='10'></page-button>
 
-        //[UIComponent("voteTitle")]
-        //public TextMeshProUGUI voteTitle;
-        //[UIComponent("voteText")]
-        //public TextMeshProUGUI voteText;
+        /*
         [UIComponent("upButton")]
         public PageButton upButton;
 
@@ -60,9 +58,9 @@ namespace PlayFirst
         public void UpPressed()
         {
             Logger.log.Debug("Up Pressed");
-            Plugin.disable_this_run = true;
-            BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Menu");
-            Logger.log.Debug(Plugin.disable_this_run.ToString());
+            //Plugin.disable_this_run = true;
+            BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Run Cancelled");
+            //Logger.log.Debug(Plugin.disable_this_run.ToString());
         }
 
         [UIComponent("downButton")]
@@ -85,7 +83,9 @@ namespace PlayFirst
         public void DownPressed()
         {
             Logger.log.Debug("Down Pressed");
+            BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Run Cancelled");
         }
+        */
 
         private void GetVotesForMap()
         {
@@ -98,14 +98,14 @@ namespace PlayFirst
                 //voteTitle.gameObject.SetActive(false);
                 return;
             }*/
-            downButton.gameObject.SetActive(true);
-            upButton.gameObject.SetActive(true);
+            //downButton.gameObject.SetActive(true);
+            //upButton.gameObject.SetActive(true);
             //voteTitle.gameObject.SetActive(true);
             //voteText.text = "Loading...";
             //StartCoroutine(GetRatingForSong(_lastSong));
         }
 
-        internal IEnumerator DelayedColorButtons()
+        /*internal IEnumerator DelayedColorButtons()
         {
             Logger.log.Debug("In ResultsView_didActivateEvent.DelayedColorButtons");
             yield return new WaitUntil(() => upButton.gameObject.activeInHierarchy);
@@ -117,30 +117,30 @@ namespace PlayFirst
                 upArrow.color = new Color(0.341f, 0.839f, 0.341f);
                 downArrow.color = new Color(0.984f, 0.282f, 0.305f);
             }
-        }
+        }*/
 
-        private void ResultsView_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+        /*private void ResultsView_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
-            Logger.log.Debug("In ResultUI.ResultsView_didActivateEvent");
+            Logger.log.Debug("In PauseUI.ResultsView_didActivateEvent");
             StartCoroutine(DelayedColorButtons());
             GetVotesForMap();
-        }
+        }*/
 
         internal void Setup()
         {
-            Logger.log.Debug("In ResultUI.Setup");
+            Logger.log.Debug("In PauseUI.Setup");
 
-            var resultsView = Resources.FindObjectsOfTypeAll<ResultsViewController>().FirstOrDefault();
-            if (!resultsView)
+            var pauseMenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().FirstOrDefault();
+            if (pauseMenu != null)
             {
-                Logger.log.Debug("Not a Results Menu...");
-                return;
+                Logger.log.Debug("Pause Menu Found!!!");
             }
 
-            BSMLParser.instance.Parse(BeatSaberMarkupLanguage.Utilities.GetResourceContent(Assembly.GetExecutingAssembly(), "PlayFirst.resultUI.bsml"), resultsView.gameObject, this);
-            Logger.log.Debug("ResultUI Created");
+            //BSMLParser.instance.Parse(BeatSaberMarkupLanguage.Utilities.GetResourceContent(Assembly.GetExecutingAssembly(), "PlayFirst.pauseUI.bsml"), pauseMenu.gameObject, this);
+            //checkbox.gameObject.SetActive(true);
+            Logger.log.Debug("PauseUI Created");
 
-            resultsView.didActivateEvent += ResultsView_didActivateEvent;
+            //resultsView.didActivateEvent += ResultsView_didActivateEvent;
         }
     }
 }
