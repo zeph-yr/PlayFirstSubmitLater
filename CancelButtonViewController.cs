@@ -28,6 +28,7 @@ namespace PlayFirst
 
         private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
         {
+            SetVisibility(false);
 
             if (cancelbutton_screen != null)
             {
@@ -50,7 +51,11 @@ namespace PlayFirst
                 BS_Utils.Utilities.BSEvents.songPaused += SongPaused;
                 BS_Utils.Utilities.BSEvents.songUnpaused += SongUnpaused;
                 BS_Utils.Utilities.BSEvents.gameSceneLoaded += GameSceneLoaded;
-                //BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh += BSEvents_lateMenuSceneLoadedFresh;
+                BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh += BSEvents_lateMenuSceneLoadedFresh;
+                BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
+                BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
+                BS_Utils.Utilities.BSEvents.menuSceneLoadedFresh += BSEvents_menuSceneLoadedFresh;
+                BS_Utils.Utilities.BSEvents.menuSceneActive += BSEvents_menuSceneActive;
             }
 
             cancelbutton_screen.gameObject.SetActive(true);
@@ -58,6 +63,20 @@ namespace PlayFirst
             cancelbutton_screen.gameObject.SetActive(false);
         }
 
+        private void BSEvents_menuSceneActive()
+        {
+            SetVisibility(false);
+        }
+
+        private void BSEvents_menuSceneLoadedFresh()
+        {
+            SetVisibility(false);
+        }
+
+        private void BSEvents_menuSceneLoaded()
+        {
+            SetVisibility(false);
+        }
 
         public FloatingScreen CreateFloatingScreen()
         {
@@ -87,6 +106,7 @@ namespace PlayFirst
 
         private void SongPaused()
         {
+            cancelbutton_view.UpdateText();
             SetVisibility(true);
         }
 
