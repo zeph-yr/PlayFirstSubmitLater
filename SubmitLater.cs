@@ -19,6 +19,10 @@ namespace PlayFirst
         public static AudioTimeSyncController audiocontroller;
         public static SongController songcontroller;
 
+        public void Awake()
+        {
+            CancelButtonViewController.Instance.ShowButton();
+        }
         
         public void Update()
         {
@@ -34,10 +38,11 @@ namespace PlayFirst
                     {
                         //Logger.log.Debug("#####################");
                         songcontroller.PauseSong();
+                        paused_yet = true;
+
                         //Logger.log.Debug("Song Paused");
 
-                        CancelButtonViewController.Instance.ShowButton();
-                        paused_yet = true;
+                        //CancelButtonViewController.Instance.ShowButton();
                     }
 
                     // Debug:

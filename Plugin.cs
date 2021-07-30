@@ -27,15 +27,13 @@ namespace PlayFirst
         [OnStart]
         public void OnApplicationStart()
         {
-            Logger.log.Debug("PlayFirst On Start");
+            //Logger.log.Debug("PlayFirst On Start");
 
             Config.Read();
 
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
 
-            //BS_Utils.Utilities.BSEvents.songPaused += BSEvents_songPaused;
-            //BS_Utils.Utilities.BSEvents.songUnpaused += BSEvents_songUnpaused;
             //BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh
 
 
@@ -46,27 +44,14 @@ namespace PlayFirst
 
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-            //CancelButtonViewController.Instance.CreateButton(); // Make button, regardless if mod enabled
+            //CancelButtonViewController.Instance.ShowButton(); // This doesn't work: Always results in error
 
             //GameObject cancelscore = new GameObject("CancelScore");
             //cancelscore.AddComponent<CancelScore>();
             //GameObject.DontDestroyOnLoad(cancelscore);
         }
 
-
-        // ############################################
-        // When to show / hide button on Pause Menu
-        private void BSEvents_songPaused()
-        {
-            //if (Config.UserConfig.mod_enabled || Config.UserConfig.nfprotection_enabled || Config.UserConfig.neversubmit_enabled)
-                //CancelButtonViewController.Instance.SetVisibility(true);
-        }
-
-        private void BSEvents_songUnpaused()
-        {
-            //CancelButtonViewController.Instance.SetVisibility(false);
-        }
-
+        // Destroy game object when reaching menu (finished is not enough because what if you quit to menu without finishing?
         private void BSEvents_LevelFinished(object sender, BS_Utils.Utilities.LevelFinishedEventArgs e)
         {
             if (submitlater != null)
@@ -126,6 +111,7 @@ namespace PlayFirst
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("NF Protection");
                 disable_run = true;
+                
                 //Logger.log.Debug("NF Protection kicked in");
             }
         }
