@@ -15,6 +15,7 @@ namespace PlayFirst
     {
         public static float pausetime = 0.1f;
         public static bool paused_yet = false;
+        public static bool run_disabled = false;
 
         public static AudioTimeSyncController audiocontroller;
         public static SongController songcontroller;

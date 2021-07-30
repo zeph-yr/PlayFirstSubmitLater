@@ -65,14 +65,17 @@ namespace PlayFirst
 
         private void BSEvents_gameSceneLoaded()
         {
+            disable_run = false; // Pause Menu state
             Logger.log.Debug("In Map");
 
             if (Config.UserConfig.neversubmit_enabled)
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("All Submission Disabled");
+                disable_run = true; // Pause Menu state
                 Logger.log.Debug("All submission disabled");
             }
 
+            // If all disabled, dont bother with this :)
             else if (Config.UserConfig.mod_enabled)
             {
                 Logger.log.Debug("Submit Later enabled");
@@ -95,7 +98,7 @@ namespace PlayFirst
             Logger.log.Debug("Map Failed");
 
             // No need to check if NF is on, same as just disabling submission whenever player fails LOL
-            if (Config.UserConfig.mod_enabled && Config.UserConfig.nfprotection_enabled)
+            if (Config.UserConfig.nfprotection_enabled)
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("NF Protection");
                 Logger.log.Debug("NF Protection kicked in");

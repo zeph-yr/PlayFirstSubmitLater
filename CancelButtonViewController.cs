@@ -3,7 +3,6 @@ using BeatSaberMarkupLanguage.FloatingScreen;
 using UnityEngine;
 using BS_Utils.Utilities;
 
-
 namespace PlayFirst
 {
     class CancelButtonViewController
@@ -24,21 +23,6 @@ namespace PlayFirst
         protected CancelButtonViewController()
         {
             BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
-        }
-
-        public void Cleanup()
-        {
-            BSEvents.earlyMenuSceneLoadedFresh -= BSEvents_earlyMenuSceneLoadedFresh;
-            BSEvents.menuSceneActive -= OnSongExited;
-            BSEvents.gameSceneActive -= OnSongStarted;
-            BSEvents.songPaused -= OnGamePause;
-            BSEvents.songUnpaused -= OnGameResume;
-
-            if (cancelbutton_screen != null)
-            {
-                GameObject.Destroy(cancelbutton_screen.gameObject);
-                cancelbutton_screen = null;
-            }
         }
 
         private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
@@ -71,10 +55,10 @@ namespace PlayFirst
             FloatingScreen screen = FloatingScreen.CreateFloatingScreen(
                 new Vector2(20, 10), false,
                 new Vector3(-1f, 0.6f, 2f),
-                new Quaternion(0.1f, 0.1f, 0.1f, 0.1f));
+                new Quaternion(25f, 330f, 6.5f, 180f));
 
-            screen.HandleReleased -= OnRelease;
-            screen.HandleReleased += OnRelease;
+            //screen.HandleReleased -= OnRelease;
+            //screen.HandleReleased += OnRelease;
 
             GameObject.DontDestroyOnLoad(screen.gameObject);
             return screen;
@@ -82,20 +66,15 @@ namespace PlayFirst
 
         private void AttachEvents()
         {
-            BSEvents.menuSceneActive += OnSongExited;
-            BSEvents.gameSceneActive += OnSongStarted;
             BSEvents.songPaused += OnGamePause;
             BSEvents.songUnpaused += OnGameResume;
         }
 
-        private void OnRelease(object _, FloatingScreenHandleEventArgs posRot)
+        /*private void OnRelease(object _, FloatingScreenHandleEventArgs posRot)
         {
             Vector3 newPos = posRot.Position;
             Quaternion newRot = posRot.Rotation;
-
-            //PluginConfig.Instance.ScreenPos = newPos;
-            //PluginConfig.Instance.ScreenRot = newRot;
-        }
+        }*/
 
         private void SetVisibility(bool visibility)
         {
@@ -109,22 +88,31 @@ namespace PlayFirst
             }
         }
 
-        private void OnSongExited()
-        {
-            SetVisibility(true);
-        }
-        private void OnSongStarted()
-        {
-            SetVisibility(false);
-        }
         private void OnGamePause()
         {
             SetVisibility(true);
+            //cancelbutton_view.UpdateText();
+            //cancelbutton_screen.gameObject.SetActive(true);
+            
         }
         private void OnGameResume()
         {
             SetVisibility(false);
+            //cancelbutton_screen.gameObject.SetActive(false);
+            //cancelbutton_view.UpdateText();
         }
 
+        public void Cleanup()
+        {
+            BSEvents.earlyMenuSceneLoadedFresh -= BSEvents_earlyMenuSceneLoadedFresh;
+            BSEvents.songPaused -= OnGamePause;
+            BSEvents.songUnpaused -= OnGameResume;
+
+            if (cancelbutton_screen != null)
+            {
+                GameObject.Destroy(cancelbutton_screen.gameObject);
+                cancelbutton_screen = null;
+            }
+        }
     }
 }

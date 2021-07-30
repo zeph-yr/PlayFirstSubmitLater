@@ -7,6 +7,7 @@ using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using TMPro;
+using BS_Utils;
 
 namespace PlayFirst
 {
@@ -21,13 +22,14 @@ namespace PlayFirst
         [UIAction("disablescore")]
         protected void ClickButtonAction()
         {
-            //Plugin.disable_run = true;
+            BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Score Cancelled");
+            Plugin.disable_run = true;
             UpdateText();
         }
 
         public void UpdateText()
         {
-            if (true)
+            if (Plugin.disable_run)
             {
                 cancelbutton_text.text = "Score Disabled";
             }
