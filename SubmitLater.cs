@@ -62,3 +62,5 @@ namespace PlayFirst
 // Hover hints (if releasing), sign it.
 // Multiplayer: disable all score submissions?
 // Campaign: disable everything, save resources
+// If disable all score turned on, Turn menu RED
+// Turn menu green if NF protection on

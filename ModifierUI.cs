@@ -9,19 +9,6 @@ namespace PlayFirst
 {
     public class ModifierUI : NotifiableSingleton<ModifierUI>
     {
-        //private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
-        public ModifierUI()
-        {
-            /*
-            BeatmapInfo.SelectedChanged += beatmapInfo =>
-            {
-                _selectedBeatmap = beatmapInfo;
-                NotifyPropertyChanged(nameof(MapDefaultJDText));
-                NotifyPropertyChanged(nameof(MapMinJDText));
-            };
-            */
-        }
-
         [UIValue("mod_enabled")]
         public bool Mod_Enabled
         {

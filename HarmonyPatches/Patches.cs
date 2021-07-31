@@ -20,48 +20,49 @@ namespace PlayFirst
                 SubmitLater.pausetime = __instance.songEndTime - 0.5f;
                 //Logger.log.Debug(SubmitLater.pausetime.ToString());
             }
-
             //Logger.log.Debug("End Patch Postfix");
         }
 
-        /*static void Postfix(AudioTimeSyncController __instance)
-        {
-
-            if (__instance.GetField< )
-            {
-                AutoPauseStealthController.ScoreController.enabled = false;
-                AutoPauseStealthController.SongController.PauseSong();
-                Logger.log?.Debug($"AutoPauseStealthController.StabilityPeriodActive is true " +
-                                  $"=> Pausing game right after AudioTimeSyncControllerPatch::StartSong()");
-            }
-
-            return;
-        }*/
-    }
-
-    /*[HarmonyPatch(typeof(SongController)), "Init"]
-    class SongControllerPatch
-    {
-        static void Postfix(SongController __instance) //Apparently you cant use Postfix
-        {
-            Logger.log.Debug("In SongController Patch");
-            //CancelScore.songcontroller = __instance;
-            Logger.log.Debug(__instance.ToString());
-
-        }
-    }*/
-
-    [HarmonyPatch(typeof(PauseMenuManager))]
-    [HarmonyPatch("ShowMenu")]
-    class PauseMenuManagerPatch
-    {
-        static void Postfix(PauseMenuManager __instance)
-        {
-            /*if (!AutoPauseStealthController.IsMultiplayer)
-            {
-                AutoPauseStealthController.instance.OnPauseShowMenu();
-            }
-            return;*/
-        }
     }
 }
+
+/*static void Postfix(AudioTimeSyncController __instance)
+{
+
+    if (__instance.GetField< )
+    {
+        AutoPauseStealthController.ScoreController.enabled = false;
+        AutoPauseStealthController.SongController.PauseSong();
+        Logger.log?.Debug($"AutoPauseStealthController.StabilityPeriodActive is true " +
+                          $"=> Pausing game right after AudioTimeSyncControllerPatch::StartSong()");
+    }
+
+    return;
+}*/
+
+/*[HarmonyPatch(typeof(PauseMenuManager))]
+[HarmonyPatch("ShowMenu")]
+class PauseMenuManagerPatch
+{
+    static void Postfix(PauseMenuManager __instance)
+    {
+        if (!AutoPauseStealthController.IsMultiplayer)
+        {
+            AutoPauseStealthController.instance.OnPauseShowMenu();
+        }
+        return;
+    }
+}*/
+
+
+/*[HarmonyPatch(typeof(SongController)), "Init"]
+class SongControllerPatch
+{
+    static void Postfix(SongController __instance) //Apparently you cant use Postfix
+    {
+        Logger.log.Debug("In SongController Patch");
+        //CancelScore.songcontroller = __instance;
+        Logger.log.Debug(__instance.ToString());
+
+    }
+}*/

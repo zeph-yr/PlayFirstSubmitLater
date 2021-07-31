@@ -49,12 +49,12 @@ namespace PlayFirst
         // Destroy GameObject when back to menu so it's not running every frame of the menu
         private void BSEvents_menuSceneLoaded()
         {
-            Logger.log.Debug("In Menu");
+            //Logger.log.Debug("In Menu");
 
             if (submitlater != null)
             {
                 GameObject.Destroy(submitlater);
-                Logger.log.Debug("Game Object Destroyed");
+                //Logger.log.Debug("Game Object Destroyed");
             }
         }
 
