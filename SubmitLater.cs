@@ -54,5 +54,11 @@ namespace PlayFirst
     }
 }
 
-// Notes:
+// Notes / TODO:
 // Maps with blocks outside the map. is that songlength or song end time?
+// Best pausetime
+// Move button to right place
+// Button color
+// Hover hints (if releasing), sign it.
+// Multiplayer: disable all score submissions?
+// Campaign: disable everything, save resources

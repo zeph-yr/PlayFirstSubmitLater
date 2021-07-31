@@ -73,9 +73,9 @@ namespace PlayFirst
         public FloatingScreen CreateFloatingScreen()
         {
             FloatingScreen screen = FloatingScreen.CreateFloatingScreen(
-                new Vector2(20, 10), false,
-                new Vector3(-1f, 0.6f, 2f),
-                new Quaternion(25f, 330f, 6.5f, 180f));
+                new Vector2(50, 20), false,
+                new Vector3(1f, 0f, 2f),
+                new Quaternion(25f, 330f, 6.5f, 0f));
 
             GameObject.DontDestroyOnLoad(screen.gameObject);
             return screen;
