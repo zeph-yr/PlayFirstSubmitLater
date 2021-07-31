@@ -29,7 +29,8 @@ namespace PlayFirst
         // Not to sure of the purpose of this
         private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
         {
-            SetVisibility(false);
+            //SetVisibility(false);
+            cancelbutton_screen.gameObject.SetActive(false);
 
             if (cancelbutton_screen != null)
             {
@@ -68,57 +69,62 @@ namespace PlayFirst
             cancelbutton_screen.gameObject.SetActive(false);
         }
 
-
-
         public FloatingScreen CreateFloatingScreen()
         {
             FloatingScreen screen = FloatingScreen.CreateFloatingScreen(
                 new Vector2(50, 20), false,
                 new Vector3(1f, 0f, 2f),
-                new Quaternion(25f, 330f, 6.5f, 0f));
+                new Quaternion(25f, 180f, 6.5f, 0f)); //25f, 330f, 6.5f, 0f
 
             GameObject.DontDestroyOnLoad(screen.gameObject);
             return screen;
         }
 
-        public void SetVisibility(bool visibility)
+        /*private void SetVisibility(bool visibility)
         {
+        
+            cancelbutton_view.UpdateText();
+            cancelbutton_screen.gameObject.SetActive(visibility);
+
             // Not sure purpose of this
-            /*if (cancelbutton_screen != null)
+            if (cancelbutton_screen != null)
             {
                 cancelbutton_screen.gameObject.SetActive(visibility);
                 if (visibility)
                 {
                     cancelbutton_view.UpdateText();
                 }
-            }*/
-            cancelbutton_view.UpdateText();
-            cancelbutton_screen.gameObject.SetActive(visibility);
-        }
+            }
+        }*/
 
 
         private void SongPaused()
         {
+            // SetVisibility(true);
+
             cancelbutton_view.UpdateText();
-            SetVisibility(true);
+            cancelbutton_screen.gameObject.SetActive(true);            
         }
 
         private void SongUnpaused()
         {
-            SetVisibility(false);
+            //SetVisibility(false);
+            cancelbutton_screen.gameObject.SetActive(false);
         }
 
         // For Restart from Pause Menu
         private void GameSceneLoaded() 
         {
-            SetVisibility(false);
+            //SetVisibility(false);
+            cancelbutton_screen.gameObject.SetActive(false);
         }
 
         // For Return to Menu from Pause Menu
         private void BSEvents_menuSceneLoaded()
         {
-            SetVisibility(false);
-            //SubmitLater.paused_yet = true;
+            //SetVisibility(false);
+            //SubmitLater.paused_yet = true; // GameObject might already be destroyed by here
+            cancelbutton_screen.gameObject.SetActive(false);
         }
     }
 }
