@@ -71,10 +71,18 @@ namespace PlayFirst
 
         public FloatingScreen CreateFloatingScreen()
         {
+            Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f);
+            rotation *= Quaternion.Euler(Vector3.up * 90);
+
             FloatingScreen screen = FloatingScreen.CreateFloatingScreen(
-                new Vector2(50, 20), false,
-                new Vector3(1f, 0f, 2f),
-                new Quaternion(25f, 180f, 6.5f, 0f)); //25f, 330f, 6.5f, 0f
+                new Vector2(34, 10), false,
+                new Vector3(-0.08f, 1.05f, 1.95f),
+                rotation);
+
+            // Size: length, height?
+            // Handle: T/F
+            // Position: left/right, up/down, in/out
+            // Rotation: x, y, z, w (don't modify these values directly, very complex)
 
             GameObject.DontDestroyOnLoad(screen.gameObject);
             return screen;

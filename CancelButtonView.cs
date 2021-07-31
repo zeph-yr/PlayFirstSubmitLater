@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeatSaberMarkupLanguage;
-using BeatSaberMarkupLanguage.Attributes;
+﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using TMPro;
-using BS_Utils;
 
 namespace PlayFirst
 {
@@ -15,6 +8,9 @@ namespace PlayFirst
     public partial class CancelButtonView : BSMLAutomaticViewController
     {
         internal CancelButtonViewController ParentCoordinator;
+
+        //[UIValue("background")]
+        //private string bgcolor;
 
         [UIComponent("cancelbutton")]
         private TextMeshProUGUI cancelbutton_text;
@@ -31,14 +27,17 @@ namespace PlayFirst
         {
             if (Plugin.disable_run)
             {
-                cancelbutton_text.text = "Score Disabled";
-                //cancelbutton_text.color = UnityEngine.Color.red; // Doesn't work
+                cancelbutton_text.text = "<#ff0000> Score Disabled";
             }
             else
             {
-                cancelbutton_text.text = "Score Will Submit";
-                //cancelbutton_text.color = UnityEngine.Color.green;
+                cancelbutton_text.text = "<#00ff00> Score Will Submit";
             }
         }
+
+        //void OnMouseOver()
+        //{
+        //    bgcolor = "#ffff00ff";
+        //}
     }
 }
