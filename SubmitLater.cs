@@ -1,13 +1,5 @@
-﻿using TMPro;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
-using IPA.Utilities;
-using System.Collections;
-using BeatSaberMarkupLanguage;
-using HarmonyLib;
-using System.Reflection;
-using HMUI;
-using UnityEngine.UI;
 
 namespace PlayFirst
 {
@@ -18,13 +10,22 @@ namespace PlayFirst
 
         public static AudioTimeSyncController audiocontroller;
         public static SongController songcontroller;
+        public static PauseMenuManager pausemenu;
 
         public void Awake()
         {
             // Putting this in Plugin.OnApplicationStart crashes it (No button comes up ever)
             CancelButtonViewController.Instance.ShowButton();
+            pausemenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().FirstOrDefault();
+            pausemenu.didPressContinueButtonEvent += Pausemenu_didPressContinueButtonEvent;
         }
-        
+
+        private void Pausemenu_didPressContinueButtonEvent()
+        {
+            CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(false);
+            songcontroller.ResumeSong();
+        }
+
         // Auto Pause at very end of map so you can decide
         public void Update()
         {
@@ -38,9 +39,10 @@ namespace PlayFirst
                 {
                     if (audiocontroller.songTime >= pausetime)
                     {
-                        //Logger.log.Debug("#####################");
-                        songcontroller.PauseSong();
                         paused_yet = true;
+                        songcontroller.PauseSong();
+                        pausemenu.ShowMenu();
+                        CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(true);
 
                         //Logger.log.Debug("Song Paused");
                     }
@@ -64,3 +66,5 @@ namespace PlayFirst
 // Campaign: disable everything, save resources
 // If disable all score turned on, Turn menu RED
 // Turn menu green if NF protection on
+
+//Why does clicking continue do nothing?

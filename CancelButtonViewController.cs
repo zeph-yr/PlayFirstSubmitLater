@@ -23,11 +23,11 @@ namespace PlayFirst
         protected CancelButtonView cancelbutton_view;
         protected CancelButtonViewController()
         {
-            BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
+            //BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
         }
 
         // Not to sure of the purpose of this
-        private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
+        /*private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
         {
             //SetVisibility(false);
             cancelbutton_screen.gameObject.SetActive(false);
@@ -37,7 +37,7 @@ namespace PlayFirst
                 GameObject.Destroy(cancelbutton_screen.gameObject);
                 cancelbutton_screen = null;
             }
-        }
+        }*/
 
         public void ShowButton()
         {
@@ -54,6 +54,7 @@ namespace PlayFirst
                 BS_Utils.Utilities.BSEvents.songUnpaused += SongUnpaused;
                 BS_Utils.Utilities.BSEvents.gameSceneLoaded += GameSceneLoaded;
                 BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
+                
 
                 // Not sure what this is for tbh...
                 //BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;

@@ -1,22 +1,15 @@
 ﻿using HarmonyLib;
 using IPA;
-using System;
 using System.Linq;
 using UnityEngine;
-using BS_Utils;
-using System.Reflection;
 
 namespace PlayFirst
 {
     [Plugin(RuntimeOptions.SingleStartInit)]
     public class Plugin
     {
-        public const string HarmonyId = "com.Zephyr.BeatSaber.PlayFirst";
-        public static Harmony harmony = new Harmony(HarmonyId);
-
         public static bool disable_run = false;
         public static GameObject submitlater;
-       
 
         [Init]
         public void Init(IPA.Logging.Logger logger)
@@ -31,14 +24,15 @@ namespace PlayFirst
 
             Config.Read();
 
+            Harmony harmony = new Harmony("com.Zephyr.BeatSaber.PlayFirst");
+            harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
             BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
 
             BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("PlayFirst", "PlayFirst.modifierUI.bsml", ModifierUI.instance);
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-
-            harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             // Notes: Creating this here crashes BS Utils and causes other errors
             //submitlater = new GameObject("SubmitLater");
@@ -79,7 +73,7 @@ namespace PlayFirst
                 return;
             }
 
-            // If all disabled, don't bother with this :)
+            // If all score disabled, don't bother with this :)
             else if (Config.UserConfig.mod_enabled)
             {
                 //Logger.log.Debug("Submit Later enabled");
@@ -97,7 +91,6 @@ namespace PlayFirst
                 //    Logger.log.Debug("songcontroller found!!!!");
                 //}
             }
-
             //Logger.log.Debug("End GameSceneLoaded");
         }
 
@@ -114,7 +107,6 @@ namespace PlayFirst
                 //Logger.log.Debug("NF Protection kicked in");
             }
         }
-
 
         [OnExit]
         public void OnApplicationQuit()

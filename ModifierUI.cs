@@ -17,7 +17,7 @@ namespace PlayFirst
             if (Config.UserConfig.nfprotection_enabled)
                 nf_col = "<#00ff00>NoFail Protection";
             else
-                nf_col = "<#000000>NoFail Protection";
+                nf_col = "<#ffffff>NoFail Protection";
 
             if (Config.UserConfig.neversubmit_enabled)
                 disable_col = "<#ff0000>Disable ALL Score Submission";
@@ -45,7 +45,6 @@ namespace PlayFirst
                 NotifyPropertyChanged();
             }
         }
-
 
         [UIValue("mod_enabled")]
         public bool Mod_Enabled
