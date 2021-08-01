@@ -1,11 +1,11 @@
 # PlayFirstSubmitLater
-Allows for automated elective score submission, including preventing submission of failed NF scores. For BS 1.16.4.
+**Allows for automated elective score submission, including preventing submission of failed NF scores. For BS 1.16.4.**
 
 Ever received trolly requests that you regret entertaining and now you have crap all over your ScoreSaber? Or is 14star OV forever dragging down your rank acc because your friends ran the map in MP while you went to eat? Now you can stop it from happening again! 
 This mod means you can play all the shitmaps and practice high stars with reckless abandon. No longer will you scream when finally pass OV but it was in practice mode or when you didn't manage to click Pause fast enough to quit a bad map.
 
 # How To Use
-- **Pause Menu Disable Score Button:** Allows you to disable score submission from the Pause Menu. Button shows current state of Score Submission. Click twice (saftey feature) to disable score for your current play run. Your decision for the run is final so choose wisely :) To enable, toggle ON "Submit Later" and go into a map at least once.
+- **Pause Menu Disable Score Button:** Allows you to disable score submission from the Pause Menu. Button shows current state of Score Submission. Click twice (safety feature) to disable score for your current play run. Your decision for the run is final so choose wisely :) To enable, toggle ON "Submit Later" and go into a map at least once.
 
 - **Submit Later:** Automatically pauses at the end of the map to you can make your decision. Automatic pausing is only for Solo Mode.
 - **NoFail Protection:** Stops score submission if you fail while playing on NF. Not enabled in Campaigns as some require NF modifier.
