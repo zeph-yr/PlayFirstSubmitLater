@@ -1,7 +1,12 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
   <settings-container child-control-width='true' child-expand-width='true' size-delta-y='-15'>
-    <checkbox-setting value ='mod_enabled' on-change='set_mod_enabled' text='Submit Later' hover-hint='Decide if you want to submit when map ends'></checkbox-setting>
-    <checkbox-setting value ='nfprotection_enabled' on-change='set_nfprotection_enabled' text='~nf_color' rich-text='true' hover-hint='Prevents failed NF scores from submitting'></checkbox-setting>
-    <checkbox-setting value='neversubmit_enabled' on-change='set_neversubmit_enabled' text='~disable_color' rich-text='true' hover-hint='Prevents all scores from submitting'></checkbox-setting>
+    <checkbox-setting value ='mod_enabled' on-change='set_mod_enabled' text='Submit Later' hover-hint='Decide when map ends (Solo only)'></checkbox-setting>
+    <checkbox-setting value ='nfprotection_enabled' on-change='set_nfprotection_enabled' text='~nf_color' rich-text='true' hover-hint='Prevent failed NF scores from submitting'></checkbox-setting>
+    <checkbox-setting value='neversubmit_enabled' on-change='set_neversubmit_enabled' text='~disable_color' rich-text='true' hover-hint='Are you sure?'></checkbox-setting>
   </settings-container>
+	<vertical pad-top='40'>
+		<horizontal child-expand-width='true'>
+			<text text='PlayFirstSubmitLater v1.0.0 by Zephyr#9125' font-size='3' align='Center'></text>
+		</horizontal>
+	</vertical>
 </bg>

@@ -15,7 +15,7 @@ namespace PlayFirst
         public void Awake()
         {
             SubmitLater.paused_yet = false;
-            
+
             CancelButtonViewController.Instance.ShowButton(); // Putting this in Plugin.OnApplicationStart crashes it (No button comes up ever)
 
             audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
@@ -23,7 +23,7 @@ namespace PlayFirst
 
             songcontroller = Resources.FindObjectsOfTypeAll<SongController>().LastOrDefault();
 
-            pausemenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().FirstOrDefault();
+            pausemenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().LastOrDefault();
             pausemenu.didPressContinueButtonEvent += Pausemenu_didPressContinueButtonEvent;
         }
 
@@ -51,14 +51,22 @@ namespace PlayFirst
                         pausemenu.ShowMenu();
                         CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(true);
 
-                        //Logger.log.Debug("Song Paused");
-                    }
+                    //Logger.log.Debug("Song Paused");
+                }
                     //else
                     //    Logger.log.Debug("In Song: Timing");
                 }
                 //else
                 //    Logger.log.Debug("Not timing"); // Tested: it's not running in menu after object destroyed :)
             //}
+        }
+
+        public void OnDestroy()
+        {
+            pausemenu.didPressContinueButtonEvent -= Pausemenu_didPressContinueButtonEvent;
+            GameObject.Destroy(pausemenu);
+            GameObject.Destroy(audiocontroller);
+            GameObject.Destroy(songcontroller);
         }
     }
 }

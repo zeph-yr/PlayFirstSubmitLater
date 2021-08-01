@@ -7,7 +7,7 @@ namespace PlayFirst
 {
     class CancelButtonViewController
     {
-        private static CancelButtonViewController _instance;
+        public static CancelButtonViewController _instance { get; private set; }
         
         public static CancelButtonViewController Instance
         {
@@ -21,23 +21,6 @@ namespace PlayFirst
 
         public FloatingScreen cancelbutton_screen;
         protected CancelButtonView cancelbutton_view;
-        protected CancelButtonViewController()
-        {
-            //BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
-        }
-
-        // Not to sure of the purpose of this
-        /*private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
-        {
-            //SetVisibility(false);
-            cancelbutton_screen.gameObject.SetActive(false);
-
-            if (cancelbutton_screen != null)
-            {
-                GameObject.Destroy(cancelbutton_screen.gameObject);
-                cancelbutton_screen = null;
-            }
-        }*/
 
         public void ShowButton()
         {
@@ -89,28 +72,9 @@ namespace PlayFirst
             return screen;
         }
 
-        /*private void SetVisibility(bool visibility)
-        {
-        
-            cancelbutton_view.UpdateText();
-            cancelbutton_screen.gameObject.SetActive(visibility);
-
-            // Not sure purpose of this
-            if (cancelbutton_screen != null)
-            {
-                cancelbutton_screen.gameObject.SetActive(visibility);
-                if (visibility)
-                {
-                    cancelbutton_view.UpdateText();
-                }
-            }
-        }*/
-
-
         private void SongPaused()
         {
             // SetVisibility(true);
-
             cancelbutton_view.UpdateText();
             cancelbutton_screen.gameObject.SetActive(true);            
         }
@@ -137,3 +101,38 @@ namespace PlayFirst
         }
     }
 }
+
+//protected CancelButtonViewController()
+//{
+//BS_Utils.Utilities.BSEvents.earlyMenuSceneLoadedFresh += BSEvents_earlyMenuSceneLoadedFresh;
+//}
+
+// Not to sure of the purpose of this
+/*private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
+{
+    //SetVisibility(false);
+    cancelbutton_screen.gameObject.SetActive(false);
+
+    if (cancelbutton_screen != null)
+    {
+        GameObject.Destroy(cancelbutton_screen.gameObject);
+        cancelbutton_screen = null;
+    }
+}*/
+
+/*private void SetVisibility(bool visibility)
+{
+
+    cancelbutton_view.UpdateText();
+    cancelbutton_screen.gameObject.SetActive(visibility);
+
+    // Not sure purpose of this
+    if (cancelbutton_screen != null)
+    {
+        cancelbutton_screen.gameObject.SetActive(visibility);
+        if (visibility)
+        {
+            cancelbutton_view.UpdateText();
+        }
+    }
+}*/

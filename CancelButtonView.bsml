@@ -1,6 +1,6 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-	<background bg='round-rect-panel' bg-color='#00000000'>
-		<horizontal bg='round-rect-panel' bg-color='#ffffffcc'>
+	<background bg='round-rect-panel' bg-color='#ff0000dd'>
+		<horizontal bg='round-rect-panel' bg-color='#ffffffdd'>
 			<button text='Disable Score' on-click='disablescore' id='cancelbutton' min-width='30' min-height='10' rich-text='true'></button>
 		</horizontal>
 	</background>

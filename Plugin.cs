@@ -1,6 +1,4 @@
-﻿using HarmonyLib;
-using IPA;
-using System.Linq;
+﻿using IPA;
 using UnityEngine;
 
 namespace PlayFirst
@@ -9,6 +7,7 @@ namespace PlayFirst
     public class Plugin
     {
         public static bool disable_run = false;
+        public static bool confirmed = false;
         public static GameObject submitlater;
 
 
@@ -25,8 +24,8 @@ namespace PlayFirst
 
             Config.Read();
 
-            Harmony harmony = new Harmony("com.Zephyr.BeatSaber.PlayFirst");
-            harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+            //Harmony harmony = new Harmony("com.Zephyr.BeatSaber.PlayFirst");
+            //harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
@@ -64,18 +63,25 @@ namespace PlayFirst
 
             // Pause Menu state. Always set to false at start of any map.
             disable_run = false;
+            confirmed = false;
 
-            if (Config.UserConfig.neversubmit_enabled)
+            // Allowed for all modes: Standard, Party, MP, Campaign
+            if (Config.UserConfig.neversubmit_enabled) 
             {
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("All Submission Disabled");
+                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("ALL SCORES");
                 disable_run = true; // Pause Menu state
+                confirmed = true;
 
                 //Logger.log.Debug("All submission disabled");
                 return;
             }
 
+            // Allow only for Standard
+            // Disable for MP: Unsure about pausing behaviour in MP
+            // Disable for Campaign: Probably annoying if user habitually leaves this toggled on
+            // Disable for Party: Probably no use case
             // If all score disabled, don't bother with this :)
-            else if (Config.UserConfig.mod_enabled)
+            else if (Config.UserConfig.mod_enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard) 
             {
                 //Logger.log.Debug("Submit Later enabled");
 
@@ -83,6 +89,7 @@ namespace PlayFirst
                 submitlater.AddComponent<SubmitLater>();
                 GameObject.DontDestroyOnLoad(submitlater);
 
+                // Moved this to SubmitLater
                 //SubmitLater.paused_yet = false;
                 //SubmitLater.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
 
@@ -99,11 +106,14 @@ namespace PlayFirst
         {
             //Logger.log.Debug("Map Failed");
 
+            // Allow for all modes: Standard, Party, MP
+            // Disable for Campaign: Some missions might have NF as a modifier
             // No need to check if NF is on: Same as just disabling submission whenever player fails LOL
-            if (Config.UserConfig.nfprotection_enabled)
+            if (Config.UserConfig.nfprotection_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("NF Protection");
                 disable_run = true;
+                confirmed = true;
                 
                 //Logger.log.Debug("NF Protection kicked in");
             }
