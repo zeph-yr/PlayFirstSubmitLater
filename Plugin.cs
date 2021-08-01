@@ -11,6 +11,7 @@ namespace PlayFirst
         public static bool disable_run = false;
         public static GameObject submitlater;
 
+
         [Init]
         public void Init(IPA.Logging.Logger logger)
         {
@@ -82,8 +83,8 @@ namespace PlayFirst
                 submitlater.AddComponent<SubmitLater>();
                 GameObject.DontDestroyOnLoad(submitlater);
 
-                SubmitLater.paused_yet = false;
-                SubmitLater.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
+                //SubmitLater.paused_yet = false;
+                //SubmitLater.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
 
                 //Debug:
                 //if (SubmitLater.songcontroller != null)

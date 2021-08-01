@@ -14,8 +14,15 @@ namespace PlayFirst
 
         public void Awake()
         {
-            // Putting this in Plugin.OnApplicationStart crashes it (No button comes up ever)
-            CancelButtonViewController.Instance.ShowButton();
+            SubmitLater.paused_yet = false;
+            
+            CancelButtonViewController.Instance.ShowButton(); // Putting this in Plugin.OnApplicationStart crashes it (No button comes up ever)
+
+            audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
+            pausetime = audiocontroller.songEndTime - 0.5f;
+
+            songcontroller = Resources.FindObjectsOfTypeAll<SongController>().LastOrDefault();
+
             pausemenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().FirstOrDefault();
             pausemenu.didPressContinueButtonEvent += Pausemenu_didPressContinueButtonEvent;
         }
@@ -31,8 +38,8 @@ namespace PlayFirst
         {
             //Logger.log.Debug("In Update!");
 
-            if (audiocontroller != null && songcontroller != null)
-            {
+            //if (audiocontroller != null && songcontroller != null)
+            //{
                 //Logger.log.Debug("Current:" + audiocontroller.songTime.ToString());
 
                 if (Config.UserConfig.mod_enabled && !paused_yet)
@@ -51,7 +58,7 @@ namespace PlayFirst
                 }
                 //else
                 //    Logger.log.Debug("Not timing"); // Tested: it's not running in menu after object destroyed :)
-            }
+            //}
         }
     }
 }
