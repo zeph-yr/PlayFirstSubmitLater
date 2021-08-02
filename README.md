@@ -1,4 +1,4 @@
-# PlayFirstSubmitLater
+# PlayFirst(SubmitLater)
 **Allows for automated elective score submission, including preventing submission of failed NF scores. For BS 1.16.4.**
 
 Ever received trolly requests that you regret entertaining and now you have crap all over your ScoreSaber? Or is 14star OV forever dragging down your rank acc because your friends ran the map in MP while you went to eat? Now you can stop it from happening again! 
