@@ -10,7 +10,8 @@ namespace PlayFirst
 
         public static AudioTimeSyncController audiocontroller;
         public static SongController songcontroller;
-        public static PauseMenuManager pausemenu;
+        //public static PauseMenuManager pausemenu;
+        public static PauseController pausecontroller;
 
         public void Awake()
         {
@@ -19,22 +20,24 @@ namespace PlayFirst
             CancelButtonViewController.Instance.ShowButton(); // Putting this in Plugin.OnApplicationStart crashes it (No button comes up ever)
 
             audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
-            pausetime = audiocontroller.songEndTime - 0.5f;
+            pausetime = audiocontroller.songEndTime - 0.25f;
+            pausecontroller = Resources.FindObjectsOfTypeAll<PauseController>().LastOrDefault();
 
-            songcontroller = Resources.FindObjectsOfTypeAll<SongController>().LastOrDefault();
-
-            pausemenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().LastOrDefault();
-            pausemenu.didPressContinueButtonEvent += Pausemenu_didPressContinueButtonEvent;
+            // Notes: Don't need these anymore. Calling PauseController.Pause() is the game's pause functionality
+            //songcontroller = Resources.FindObjectsOfTypeAll<SongController>().LastOrDefault();
+            //pausemenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().LastOrDefault();
+            //pausemenu.didPressContinueButtonEvent += Pausemenu_didPressContinueButtonEvent;
         }
 
-        private void Pausemenu_didPressContinueButtonEvent()
+        // Notes: Using PauseMenuManager.ShowMenu() with this makes it very hard to click in VR (it's not apparent in FPFC)
+        /*private void Pausemenu_didPressContinueButtonEvent()
         {
             CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(false);
             songcontroller.ResumeSong();
-        }
+        }*/
 
         // Auto Pause at very end of map so you can decide
-        public void Update()
+        public void LateUpdate()
         {
             //Logger.log.Debug("In Update!");
 
@@ -42,20 +45,26 @@ namespace PlayFirst
             //{
                 //Logger.log.Debug("Current:" + audiocontroller.songTime.ToString());
 
-                if (Config.UserConfig.mod_enabled && !paused_yet)
+            if (Config.UserConfig.mod_enabled && !paused_yet)
+            {
+                if (audiocontroller.songTime >= pausetime)
                 {
-                    if (audiocontroller.songTime >= pausetime)
-                    {
-                        paused_yet = true;
-                        songcontroller.PauseSong();
-                        pausemenu.ShowMenu();
-                        CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(true);
+                    paused_yet = true;
+                    pausecontroller.Pause();                   
 
-                    //Logger.log.Debug("Song Paused");
+                    // Notes: PauseSong in SongController pauses map but isn't the whole "Pause" functionality
+                    // Doesn't bring up menu, continue button won't work either.
+                    // Call PauseController.Pause() instead:
+
+                    //songcontroller.PauseSong();
+                    //pausemenu.ShowMenu();
+                    //CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(true);
+
+                //Logger.log.Debug("Song Paused");
                 }
-                    //else
-                    //    Logger.log.Debug("In Song: Timing");
-                }
+                //else
+                //    Logger.log.Debug("In Song: Timing");
+            }
                 //else
                 //    Logger.log.Debug("Not timing"); // Tested: it's not running in menu after object destroyed :)
             //}
@@ -63,10 +72,11 @@ namespace PlayFirst
 
         public void OnDestroy()
         {
-            pausemenu.didPressContinueButtonEvent -= Pausemenu_didPressContinueButtonEvent;
-            GameObject.Destroy(pausemenu);
+            //pausemenu.didPressContinueButtonEvent -= Pausemenu_didPressContinueButtonEvent;
+            //GameObject.Destroy(pausemenu);
             GameObject.Destroy(audiocontroller);
-            GameObject.Destroy(songcontroller);
+            GameObject.Destroy(pausecontroller);
+            //GameObject.Destroy(songcontroller);
         }
     }
 }

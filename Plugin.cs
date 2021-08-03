@@ -41,7 +41,7 @@ namespace PlayFirst
         }
 
         // Destroy GameObject when back to menu so it's not running every frame of the menu
-        private void BSEvents_menuSceneLoaded()
+        private void BSEvents_menuSceneLoaded() // Check if pause menu counts as menuscene loaded
         {
             //Logger.log.Debug("In Menu");
 
