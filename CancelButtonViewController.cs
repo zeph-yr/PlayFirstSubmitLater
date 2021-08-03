@@ -59,9 +59,13 @@ namespace PlayFirst
             rotation *= Quaternion.Euler(Vector3.up * 90);
 
             FloatingScreen screen = FloatingScreen.CreateFloatingScreen(
-                new Vector2(34, 10), false,
+                new Vector2(80, 10), false,
                 new Vector3(-0.08f, 1.05f, 1.95f),
                 rotation);
+
+            // Notes: If no text, this size and position is perfect for the button alone
+            // Vector2(34,10)
+            // Vector3(-0.08f, 1.05f, 1.95f)
 
             // Size: length, height?
             // Handle: T/F

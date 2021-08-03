@@ -25,7 +25,7 @@ namespace PlayFirst
             {
                 Plugin.confirmed = true;
                 UpdateText();
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Choice");
+                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Your Choice");
             }
         }
 

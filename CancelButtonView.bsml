@@ -2,6 +2,7 @@
 	<background bg='round-rect-panel' bg-color='#ff0000dd'>
 		<horizontal bg='round-rect-panel' bg-color='#ffffffdd'>
 			<button text='Disable Score' on-click='disablescore' id='cancelbutton' min-width='30' min-height='10' rich-text='true'></button>
+			<text text='Click to disable score submission' align='Left'></text>
 		</horizontal>
 	</background>
 </bg>
