@@ -50,7 +50,7 @@ namespace PlayFirst
                 if (audiocontroller.songTime >= pausetime)
                 {
                     paused_yet = true;
-                    pausecontroller.Pause();                   
+                    pausecontroller.Pause();
 
                     // Notes: PauseSong in SongController pauses map but isn't the whole "Pause" functionality
                     // Doesn't bring up menu, continue button won't work either.
@@ -60,7 +60,7 @@ namespace PlayFirst
                     //pausemenu.ShowMenu();
                     //CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(true);
 
-                //Logger.log.Debug("Song Paused");
+                    Logger.log.Debug("Paused at end of map");
                 }
                 //else
                 //    Logger.log.Debug("In Song: Timing");

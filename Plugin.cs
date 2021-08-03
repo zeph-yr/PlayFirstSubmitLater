@@ -72,7 +72,7 @@ namespace PlayFirst
                 disable_run = true; // Pause Menu state
                 confirmed = true;
 
-                //Logger.log.Debug("All submission disabled");
+                Logger.log.Debug("All submission disabled");
                 return;
             }
 
@@ -98,6 +98,7 @@ namespace PlayFirst
                 //{
                 //    Logger.log.Debug("songcontroller found!!!!");
                 //}
+                Logger.log.Debug("SubmitLater enabled");
             }
             //Logger.log.Debug("End GameSceneLoaded");
         }
@@ -115,7 +116,7 @@ namespace PlayFirst
                 disable_run = true;
                 confirmed = true;
                 
-                //Logger.log.Debug("NF Protection kicked in");
+                Logger.log.Debug("Map failed. NF Protection kicked in");
             }
         }
 

@@ -26,6 +26,7 @@ namespace PlayFirst
                 Plugin.confirmed = true;
                 UpdateText();
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Your Choice");
+                Logger.log.Debug("Score disabled by user");
             }
         }
 

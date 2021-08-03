@@ -1,7 +1,6 @@
 ﻿using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.FloatingScreen;
 using UnityEngine;
-using BS_Utils;
 
 namespace PlayFirst
 {
