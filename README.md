@@ -18,4 +18,4 @@ This mod means you can play all the shitmaps and practice high stars with reckle
 ![screenshot](https://github.com/zeph-yr/PlayFirstSubmitLater/blob/main/menu_1a_small.png)
 
 # About
-This is my second mod and written mostly from scratch. If you enjoy this, please feel free to let me know :) I appreciate your feedback! Not releasing the code for this yet because it's early in dev and I'm kinda shy xD
+This is my second mod and written mostly from scratch. If you enjoy this, please feel free to let me know :) I appreciate your feedback! No code uploaded for this yet because it's early in dev and I'm kinda shy xD
