@@ -82,14 +82,7 @@ namespace PlayFirst
 }
 
 // Notes / TODO:
-// Maps with blocks outside the map. is that songlength or song end time?
-// Best pausetime
-// Move button to right place
-// Button color
-// Hover hints (if releasing), sign it.
-// Multiplayer: disable all score submissions?
+// Done: Maps with blocks outside the map. is that songlength or song end time?
+// Done: Best pausetime
+// Multiplayer: disable all score submissions
 // Campaign: disable everything, save resources
-// If disable all score turned on, Turn menu RED
-// Turn menu green if NF protection on
-
-//Why does clicking continue do nothing?
