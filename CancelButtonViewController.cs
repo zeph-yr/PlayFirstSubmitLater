@@ -89,7 +89,7 @@ namespace PlayFirst
         // For Return to Menu from Pause Menu
         private void BSEvents_menuSceneLoaded()
         {
-            //SubmitLater.paused_yet = true; // GameObject might already be destroyed by here
+            //SubmitLater.paused_yet = true;
             cancelbutton_screen.gameObject.SetActive(false);
         }
     }
