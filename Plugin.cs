@@ -65,8 +65,15 @@ namespace PlayFirst
             disable_run = false;
             confirmed = false;
 
+            // If this plugin runs on ScoreSaber replay mode
+            if (Utils.ScoresaberUtil.IsInReplay())
+            {
+                Logger.log.Debug("Currently running on ScoreSaber replay mode");
+                return;
+            }
+
             // Allowed for all modes: Standard, Party, MP, Campaign
-            if (Config.UserConfig.neversubmit_enabled) 
+            else if (Config.UserConfig.neversubmit_enabled) 
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("ALL SCORES");
                 disable_run = true; // Pause Menu state
