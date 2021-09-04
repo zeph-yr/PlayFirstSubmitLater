@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CancelButtonView.bsml" />
+    <None Include="PlayFirst.csproj.user" Condition="Exists('PlayFirst.csproj.user')" />
     <EmbeddedResource Include="modifierUI.bsml" />
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="PlayFirst.csproj.user" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
