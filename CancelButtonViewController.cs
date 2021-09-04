@@ -72,7 +72,11 @@ namespace PlayFirst
         private void SongPaused()
         {
             cancelbutton_view.UpdateText();
-            cancelbutton_screen.gameObject.SetActive(true);            
+            // Only show view if it's not on ScoreSaber replay scene
+            if (!Utils.ScoresaberUtil.IsInReplay())
+            {
+                cancelbutton_screen.gameObject.SetActive(true);            
+            }
         }
 
         private void SongUnpaused()
