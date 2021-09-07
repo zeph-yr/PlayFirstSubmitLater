@@ -35,21 +35,7 @@ Before opening the project for the first time, you should set up `PlayFirst.cspr
   <PropertyGroup>
     <BeatSaberDir>path_to_beat_saber</BeatSaberDir>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-  </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
 </Project>
 ```
 
-`path_to_beat_saber` should be pointed towards your Beat Saber directory. This defaults to `C:\Program Files (x86)\Steam\steamapps\common\Beat Saber`.
-The `OutputPath` value for both debug and release can be changed according to your need. This value corresponds to the location of the output `.dll` file.
-For testing purpose, you can set `OutputPath` for debug configuration to `$(BeatSaberDir)\Plugins`.
+`path_to_beat_saber` should be pointed towards your Beat Saber directory. This defaults to `C:\Program Files (x86)\Steam\steamapps\common\Beat Saber`. The build system will automatically handles the build tasks and copies the desired `dll` file to your plugin directory. Release builds will also automatically generates BeatMods `zip` and final `dll` file under `bin\Release` directory.
