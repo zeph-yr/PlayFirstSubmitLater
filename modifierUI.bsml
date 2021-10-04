@@ -6,7 +6,7 @@
   </settings-container>
 	<vertical pad-top='40'>
 		<horizontal child-expand-width='true'>
-			<text text='PlayFirst(SubmitLater) v1.0.3 by Zephyr#9125' font-color='#ff0080ff' font-size='3' align='Center'></text>
+			<text text='PlayFirst(SubmitLater) v1.0.4 by Zephyr#9125' font-color='#ff0080ff' font-size='3' align='Center'></text>
 		</horizontal>
 	</vertical>
 </bg>

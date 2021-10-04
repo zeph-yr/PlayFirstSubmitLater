@@ -70,14 +70,14 @@ namespace PlayFirst
             //}
         }
 
-        public void OnDestroy()
+        /*public void OnDestroy()
         {
             //pausemenu.didPressContinueButtonEvent -= Pausemenu_didPressContinueButtonEvent;
             //GameObject.Destroy(pausemenu);
             GameObject.Destroy(audiocontroller);
             GameObject.Destroy(pausecontroller);
             //GameObject.Destroy(songcontroller);
-        }
+        }*/
     }
 }
 
