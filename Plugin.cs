@@ -1,4 +1,5 @@
 ﻿using IPA;
+using System.Linq;
 using UnityEngine;
 
 namespace PlayFirst
@@ -9,6 +10,7 @@ namespace PlayFirst
         public static bool disable_run = false;
         public static bool confirmed = false;
         public static GameObject submitlater;
+        public static AudioTimeSyncController tm_audiocontroller;
 
 
         [Init]
@@ -68,7 +70,7 @@ namespace PlayFirst
             // Allowed for all modes: Standard, Party, MP, Campaign
             if (Config.UserConfig.neversubmit_enabled) 
             {
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("ALL SCORES");
+                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("All Scores");
                 disable_run = true; // Pause Menu state
                 confirmed = true;
 
@@ -76,12 +78,27 @@ namespace PlayFirst
                 return;
             }
 
+            if (Config.UserConfig.trollmap_enabled)
+            {
+                tm_audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
+
+                if (tm_audiocontroller.songEndTime <= Config.UserConfig.trollmap_threshold)
+                {
+                    BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Song Duration");
+                    disable_run = true; // Pause Menu state
+                    confirmed = true;
+
+                    Logger.log.Debug("Short map disabled");
+                    return;
+                }
+            }
+
             // Allow only for Standard
             // Disable for MP: Unsure about pausing behaviour in MP
             // Disable for Campaign: Probably annoying if user habitually leaves this toggled on
             // Disable for Party: Probably no use case
             // If all score disabled, don't bother with this :)
-            else if (Config.UserConfig.mod_enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard) 
+            if (Config.UserConfig.mod_enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard) 
             {
                 //Logger.log.Debug("Submit Later enabled");
 

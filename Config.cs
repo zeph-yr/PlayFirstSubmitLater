@@ -9,16 +9,28 @@ namespace PlayFirst
         public bool nfprotection_enabled = true;
         public bool neversubmit_enabled = false;
 
+        public bool trollmap_enabled = false;
+        public float trollmap_threshold = 60f;
+        public int trollmap_min_time = 0;
+        public int trollmap_max_time = 120;
+
         public PlayFirstConfig()
         {
 
         }
         [JsonConstructor]
-        public PlayFirstConfig(bool mod_enabled, bool nfprotection_enabled, bool neversubmit_enabled)
+        public PlayFirstConfig(bool mod_enabled, bool nfprotection_enabled, bool neversubmit_enabled,
+            bool trollmap_enabled, float trollmap_threshold, int trollmap_min_time, int trollmap_max_time)
+
         {
             this.mod_enabled = mod_enabled;
             this.nfprotection_enabled = nfprotection_enabled;
             this.neversubmit_enabled = neversubmit_enabled;
+
+            this.trollmap_enabled = trollmap_enabled;
+            this.trollmap_threshold = trollmap_threshold;
+            this.trollmap_min_time = trollmap_min_time;
+            this.trollmap_max_time = trollmap_max_time;
         }
     }
 

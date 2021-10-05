@@ -23,6 +23,8 @@ namespace PlayFirst
             pausetime = audiocontroller.songEndTime - 0.25f;
             pausecontroller = Resources.FindObjectsOfTypeAll<PauseController>().LastOrDefault();
 
+
+
             // Notes: Don't need these anymore. Calling PauseController.Pause() is the game's pause functionality
             //songcontroller = Resources.FindObjectsOfTypeAll<SongController>().LastOrDefault();
             //pausemenu = Resources.FindObjectsOfTypeAll<PauseMenuManager>().LastOrDefault();
@@ -60,7 +62,7 @@ namespace PlayFirst
                     //pausemenu.ShowMenu();
                     //CancelButtonViewController.Instance.cancelbutton_screen.gameObject.SetActive(true);
 
-                    Logger.log.Debug("Paused at end of map");
+                    //Logger.log.Debug("Paused at end of map");
                 }
                 //else
                 //    Logger.log.Debug("In Song: Timing");

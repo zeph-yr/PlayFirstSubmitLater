@@ -25,7 +25,7 @@ namespace PlayFirst
             {
                 Plugin.confirmed = true;
                 UpdateText();
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Your Choice");
+                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("SubmitLater");
                 Logger.log.Debug("Score disabled by user");
             }
         }
