@@ -104,7 +104,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TrollMap.cs" />
     <Compile Include="SubmitLater.cs" />
     <Compile Include="CancelButtonViewController.cs" />
     <Compile Include="CancelButtonView.cs" />

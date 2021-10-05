@@ -22,8 +22,6 @@ namespace PlayFirst
         [OnStart]
         public void OnApplicationStart()
         {
-            //Logger.log.Debug("PlayFirst On Start");
-
             Config.Read();
 
             //Harmony harmony = new Harmony("com.Zephyr.BeatSaber.PlayFirst");
@@ -78,7 +76,11 @@ namespace PlayFirst
                 return;
             }
 
-            if (Config.UserConfig.trollmap_enabled)
+            // Allowed for Solo and MP only
+            if (Config.UserConfig.trollmap_enabled && 
+                (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || 
+                 BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer))
+
             {
                 tm_audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
 
@@ -106,15 +108,6 @@ namespace PlayFirst
                 submitlater.AddComponent<SubmitLater>();
                 GameObject.DontDestroyOnLoad(submitlater);
 
-                // Moved this to SubmitLater
-                //SubmitLater.paused_yet = false;
-                //SubmitLater.songcontroller = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
-
-                //Debug:
-                //if (SubmitLater.songcontroller != null)
-                //{
-                //    Logger.log.Debug("songcontroller found!!!!");
-                //}
                 Logger.log.Debug("SubmitLater enabled");
             }
             //Logger.log.Debug("End GameSceneLoaded");
@@ -130,7 +123,7 @@ namespace PlayFirst
             if (Config.UserConfig.nfprotection_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("NF Protection");
-                disable_run = true;
+                disable_run = true; // Pause Menu state
                 confirmed = true;
                 
                 Logger.log.Debug("Map failed. NF Protection kicked in");
