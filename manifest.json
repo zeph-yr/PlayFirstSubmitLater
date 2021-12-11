@@ -3,12 +3,12 @@
   "id": "PlayFirst",
   "name": "PlayFirst",
   "author": "Zephyr",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "",
-  "gameVersion": "1.16.4",
-  "dependsOn": {
-    "BSIPA": "^4.0.5",
-    "BS Utils": "^1.11.0"
-  },
-  "features": []
+  "gameVersion": "1.18.0",
+    "dependsOn": {
+        "BSIPA": "^4.2.0",
+        "BS Utils": "^1.11.0",
+        "BeatSaberMarkupLanguage": "^1.5.9"
+    }
 }
