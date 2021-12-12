@@ -16,8 +16,8 @@ This mod means you can play all the shitmaps and practice high stars with reckle
 - Place PlayFirst.dll in Plugins folder. Disabled scores will not be set locally or submitted to ScoreSaber.
 - Requires BSIPA, BSML, BS_Utils
 
-![screenshot](Docs/Images/menu_1_small.png)
-![screenshot](Docs/Images/menu_1a_small.png)
+![screenshot](Screenshots/menu_1_small.png)
+![screenshot](Screenshots/menu_1a_small.png)
 
 # About
 
