@@ -3,7 +3,7 @@
 		<checkbox-setting value ='mod_enabled' on-change='set_mod_enabled' text='Submit Later' hover-hint='Decide score submission when map ends (Solo only)'></checkbox-setting>
 		<checkbox-setting value ='nfprotection_enabled' on-change='set_nfprotection_enabled' text='~nf_color' rich-text='true' hover-hint='Prevent failed NF scores from submitting'></checkbox-setting>
 		<checkbox-setting value ='trollmap_enabled' on-change='set_trollmap_enabled' text='~tm_color' hover-hint='Prevent scores on maps shorter than minimum duration from submitting'></checkbox-setting>
-		<slider-setting id='trollmap_slider' value ='trollmap_value' on-change='set_trollmap_value' text='In Seconds' increment='1' min='~min_time' max='~max_time' font-color='#8c8c8cff'></slider-setting>
+		<slider-setting id='trollmap_slider' value ='trollmap_value' on-change='set_trollmap_value' text='-----' increment='1' min='~min_time' max='~max_time' font-color='#00000000' hover-hint='Duration in seconds'></slider-setting>
 		<checkbox-setting value='neversubmit_enabled' on-change='set_neversubmit_enabled' text='~disable_color' rich-text='true' hover-hint='Are you sure?'></checkbox-setting>
 	</settings-container>
 	<vertical pad-top='40'>
