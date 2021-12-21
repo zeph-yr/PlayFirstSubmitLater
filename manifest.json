@@ -1,14 +1,17 @@
 ﻿{
-  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
-  "id": "PlayFirst",
-  "name": "PlayFirst",
-  "author": "Zephyr",
-  "version": "1.0.5",
-  "description": "",
-  "gameVersion": "1.18.0",
+    "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+    "id": "PlayFirst",
+    "name": "PlayFirst",
+    "author": "Zephyr",
+    "version": "1.1.5",
+    "description": "",
+    "gameVersion": "1.19.0",
     "dependsOn": {
         "BSIPA": "^4.2.0",
         "BS Utils": "^1.11.0",
         "BeatSaberMarkupLanguage": "^1.5.9"
+    },
+    "links": {
+        "donate": "http://www.paypal.me/zeph3yr"
     }
 }

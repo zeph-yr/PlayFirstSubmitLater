@@ -24,9 +24,6 @@ namespace PlayFirst
         {
             Config.Read();
 
-            //Harmony harmony = new Harmony("com.Zephyr.BeatSaber.PlayFirst");
-            //harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
-
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
             BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
@@ -90,7 +87,7 @@ namespace PlayFirst
                     disable_run = true; // Pause Menu state
                     confirmed = true;
 
-                    Logger.log.Debug("Short map disabled");
+                    Logger.log.Debug("Short map duration");
                     return;
                 }
             }
@@ -122,7 +119,7 @@ namespace PlayFirst
             // No need to check if NF is on: Same as just disabling submission whenever player fails LOL
             if (Config.UserConfig.nfprotection_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
             {
-                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("NF Protection");
+                BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Better NoFail");
                 disable_run = true; // Pause Menu state
                 confirmed = true;
                 

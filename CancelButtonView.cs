@@ -45,18 +45,5 @@ namespace PlayFirst
                 cancelbutton_text.text = "<#00ff00> Score Will Submit";
             }
         }
-
-
-        //private string button_state;
-        /*void OnMouseOver()
-        {
-            if (Plugin.disable_run)
-                cancelbutton_text.text = "<#ff0000> Are you sure?";
-        }
-
-        void OnMouseExit()
-        {
-            UpdateText();
-        }*/
     }
 }

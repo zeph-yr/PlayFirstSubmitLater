@@ -1,9 +1,6 @@
-﻿using BeatSaberMarkupLanguage;
-using BeatSaberMarkupLanguage.Attributes;
+﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.Components.Settings;
-using HMUI;
-using UnityEngine;
 
 namespace PlayFirst
 {
@@ -16,19 +13,19 @@ namespace PlayFirst
         public ModifierUI()
         {
             if (Config.UserConfig.nfprotection_enabled)
-                nf_col = "<#00ff00>NoFail Protection";
+                nf_col = "<#00ff00>Better NoFail";
             else
-                nf_col = "<#ffffff>NoFail Protection";
+                nf_col = "<#ffffff>Better NoFail";
 
             if (Config.UserConfig.trollmap_enabled)
-                tm_col = "<#ffff00>Disable Short Maps";
+                tm_col = "<#ffff00>Minimum Song Duration";
             else
-                tm_col = "<#ffffff>Disable Short Maps";
+                tm_col = "<#ffffff>Minimum Song Duration";
 
             if (Config.UserConfig.neversubmit_enabled)
-                disable_col = "<#ff0000>Disable ALL Score Submission";
+                disable_col = "<#ff0000>Disable All Score Submission";
             else
-                disable_col = "<#ffffff>Disable ALL Score Submission";
+                disable_col = "<#ffffff>Disable All Score Submission";
         }
 
         [UIValue("nf_color")]
@@ -95,13 +92,13 @@ namespace PlayFirst
 
             if (value)
             {
-                tm_col = "<#ffff00>Disable Short Maps";
+                tm_col = "<#ffff00>Minimum Song Duration";
                 TM_Color = "changed";
             }
 
             else
             {
-                tm_col = "<#ffffff>Disable Short Maps";
+                tm_col = "<#ffffff>Minimum Song Duration";
                 TM_Color = "changed";
             }
         }
@@ -145,13 +142,13 @@ namespace PlayFirst
 
             if (value)
             {
-                nf_col = "<#00ff00>NoFail Protection";
+                nf_col = "<#00ff00>Better NoFail";
                 NF_Color = "changed";
             }
 
             else
             {
-                nf_col = "<#ffffff>NoFail Protection";
+                nf_col = "<#ffffff>Better NoFail";
                 NF_Color = "changed";
             }
         }
@@ -172,13 +169,13 @@ namespace PlayFirst
             Neversubmit_Enabled = value;
             if (value)
             {
-                disable_col = "<#ff0000>Disable ALL Score Submission";
+                disable_col = "<#ff0000>Disable All Score Submission";
                 Disable_Color = "changed";
             }
 
             else
             {
-                disable_col = "<#ffffff>Disable ALL Score Submission";
+                disable_col = "<#ffffff>Disable All Score Submission";
                 Disable_Color = "changed";
             }
         }
