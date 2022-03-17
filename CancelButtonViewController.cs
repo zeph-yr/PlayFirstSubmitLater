@@ -27,7 +27,6 @@ namespace PlayFirst
             {
                 cancelbutton_screen = CreateFloatingScreen();
                 cancelbutton_view = BeatSaberUI.CreateViewController<CancelButtonView>();
-                cancelbutton_view.ParentCoordinator = this;
                 cancelbutton_screen.SetRootViewController(cancelbutton_view, HMUI.ViewController.AnimationType.None);
 
                 BS_Utils.Utilities.BSEvents.songPaused += SongPaused;

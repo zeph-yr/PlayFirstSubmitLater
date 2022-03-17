@@ -7,8 +7,6 @@ namespace PlayFirst
     [HotReload(@"CancelButtonView.bsml")]
     public partial class CancelButtonView : BSMLAutomaticViewController
     {
-        internal CancelButtonViewController ParentCoordinator;
-
         [UIComponent("cancelbutton")]
         private TextMeshProUGUI cancelbutton_text;
 
