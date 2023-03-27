@@ -52,7 +52,10 @@ namespace PlayFirst
                 if (audiocontroller.songTime >= pausetime)
                 {
                     paused_yet = true;
-                    pausecontroller.Pause();
+                    if (!BeatLeaderInterop.IsBeatLeaderReplay())
+                    {
+                        pausecontroller.Pause();
+                    }
 
                     // Notes: PauseSong in SongController pauses map but isn't the whole "Pause" functionality
                     // Doesn't bring up menu, continue button won't work either.
