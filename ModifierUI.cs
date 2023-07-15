@@ -39,7 +39,10 @@ namespace PlayFirst
 
         public void Dispose()
         {
-            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.RemoveTab("PlayFirst");
+            if (BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance != null)
+            {
+                BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.RemoveTab("PlayFirst");
+            }
         }
 
 
@@ -105,13 +108,12 @@ namespace PlayFirst
             if (value)
             {
                 bnf_col = "<#00ff00>Better NoFail";
-                BNF_Color = "changed";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BNF_Color)));
             }
-
             else
             {
                 bnf_col = "<#ffffff>Better NoFail";
-                BNF_Color = "changed";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BNF_Color)));
             }
         }
 
@@ -132,13 +134,12 @@ namespace PlayFirst
             if (value)
             {
                 sd_col = "<#ffff00>Minimum Song Duration";
-                SD_Color = "changed";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SD_Color)));
             }
-
             else
             {
                 sd_col = "<#ffffff>Minimum Song Duration";
-                SD_Color = "changed";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SD_Color)));
             }
         }
 
@@ -180,13 +181,12 @@ namespace PlayFirst
             if (value)
             {
                 das_col = "<#ff0000>Disable All Score Submission";
-                DAS_Color = "changed";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DAS_Color)));
             }
-
             else
             {
                 das_col = "<#ffffff>Disable All Score Submission";
-                DAS_Color = "changed";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DAS_Color)));
             }
         }
     }
