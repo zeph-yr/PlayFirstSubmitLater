@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿/*using Newtonsoft.Json;
 using System.IO;
 
 namespace PlayFirst
@@ -57,4 +57,4 @@ namespace PlayFirst
             File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(UserConfig, Formatting.Indented));
         }
     }
-}
+}*/
