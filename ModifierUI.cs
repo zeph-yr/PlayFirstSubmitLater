@@ -1,52 +1,65 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
-using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.Components.Settings;
+using System;
+using System.ComponentModel;
+using Zenject;
 
 namespace PlayFirst
 {
-    public class ModifierUI : NotifiableSingleton<ModifierUI>
+    public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged
     {
         private string nf_col;
         private string tm_col;
         private string disable_col;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ModifierUI()
         {
-            if (Config.UserConfig.nfprotection_enabled)
+            if (PluginConfig.Instance.nfprotection_enabled)
                 nf_col = "<#00ff00>Better NoFail";
             else
                 nf_col = "<#ffffff>Better NoFail";
 
-            if (Config.UserConfig.trollmap_enabled)
+            if (PluginConfig.Instance.songduration_enabled)
                 tm_col = "<#ffff00>Minimum Song Duration";
             else
                 tm_col = "<#ffffff>Minimum Song Duration";
 
-            if (Config.UserConfig.neversubmit_enabled)
+            if (PluginConfig.Instance.neversubmit_enabled)
                 disable_col = "<#ff0000>Disable All Score Submission";
             else
                 disable_col = "<#ffffff>Disable All Score Submission";
         }
 
+        public void Initialize()
+        {
+            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("PlayFirst", "PlayFirst.modifierUI.bsml", this);
+        }
+
+        public void Dispose()
+        {
+            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.RemoveTab("PlayFirst");
+        }
+
+
         [UIValue("nf_color")]
         public string NF_Color
-
         {
             get => nf_col;
             set
             {
-                NotifyPropertyChanged();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NF_Color)));
             }
         }
 
         [UIValue("tm_color")]
         public string TM_Color
-
         {
             get => tm_col;
             set
             {
-                NotifyPropertyChanged();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TM_Color)));
             }
         }
 
@@ -56,17 +69,17 @@ namespace PlayFirst
             get => disable_col;
             set
             {
-                NotifyPropertyChanged();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Disable_Color)));
             }
         }
 
         [UIValue("mod_enabled")]
         public bool Mod_Enabled
         {
-            get => Config.UserConfig.mod_enabled;
+            get => PluginConfig.Instance.mod_enabled;
             set
             {
-                Config.UserConfig.mod_enabled = value;
+                PluginConfig.Instance.mod_enabled = value;
             }
         }
         [UIAction("set_mod_enabled")]
@@ -79,10 +92,10 @@ namespace PlayFirst
         [UIValue("trollmap_enabled")]
         public bool Trollmap_Enabled
         {
-            get => Config.UserConfig.trollmap_enabled;
+            get => PluginConfig.Instance.songduration_enabled;
             set
             {
-                Config.UserConfig.trollmap_enabled = value;
+                PluginConfig.Instance.songduration_enabled = value;
             }
         }
         [UIAction("set_trollmap_enabled")]
@@ -104,19 +117,19 @@ namespace PlayFirst
         }
 
         [UIValue("min_time")]
-        private int Min_Time => Config.UserConfig.trollmap_min_time;
+        private int Min_Time => PluginConfig.Instance.songduration_min_time;
         [UIValue("max_time")]
-        private int Max_Time => Config.UserConfig.trollmap_max_time;
+        private int Max_Time => PluginConfig.Instance.songduration_max_time;
 
         [UIComponent("trollmap_slider")]
         public SliderSetting Trollmap_Slider;
         [UIValue("trollmap_value")]
         public float Trollmap_Value
         {
-            get => Config.UserConfig.trollmap_threshold;
+            get => PluginConfig.Instance.songduration_threshold;
             set
             {
-                Config.UserConfig.trollmap_threshold = value;
+                PluginConfig.Instance.songduration_threshold = value;
             }
         }
         [UIAction("set_trollmap_value")]
@@ -129,10 +142,10 @@ namespace PlayFirst
         [UIValue("nfprotection_enabled")]
         public bool Nf_Enabled
         {
-            get => Config.UserConfig.nfprotection_enabled;
+            get => PluginConfig.Instance.nfprotection_enabled;
             set
             {
-                Config.UserConfig.nfprotection_enabled = value;
+                PluginConfig.Instance.nfprotection_enabled = value;
             }
         }
         [UIAction("set_nfprotection_enabled")]
@@ -157,10 +170,10 @@ namespace PlayFirst
         [UIValue("neversubmit_enabled")]
         public bool Neversubmit_Enabled
         {
-            get => Config.UserConfig.neversubmit_enabled;
+            get => PluginConfig.Instance.neversubmit_enabled;
             set
             {
-                Config.UserConfig.neversubmit_enabled = value;
+                PluginConfig.Instance.neversubmit_enabled = value;
             }
         }
         [UIAction("set_neversubmit_enabled")]

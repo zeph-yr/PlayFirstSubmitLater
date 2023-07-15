@@ -1,4 +1,9 @@
 ﻿using IPA;
+using IPA.Config;
+using IPA.Config.Stores;
+using IPA.Loader;
+using PlayFirst.Installers;
+using SiraUtil.Zenject;
 using System.Linq;
 using UnityEngine;
 
@@ -14,22 +19,20 @@ namespace PlayFirst
 
 
         [Init]
-        public void Init(IPA.Logging.Logger logger)
+        public void Init(IPA.Logging.Logger logger, Config conf, Zenjector zenjector)
         {
             Logger.log = logger;
+            PluginConfig.Instance = conf.Generated<PluginConfig>();
+
+            zenjector.Install<PlayFirstMenuInstaller>(Location.Menu);
         }
 
         [OnStart]
         public void OnApplicationStart()
         {
-            Config.Read();
-
             BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
             BS_Utils.Utilities.BSEvents.energyReachedZero += BSEvents_energyReachedZero;
             BS_Utils.Utilities.BSEvents.menuSceneLoaded += BSEvents_menuSceneLoaded;
-
-            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("PlayFirst", "PlayFirst.modifierUI.bsml", ModifierUI.instance);
-            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
             // Notes: Creating this here crashes BS Utils and causes other errors
             //submitlater = new GameObject("SubmitLater");
@@ -49,11 +52,6 @@ namespace PlayFirst
             }
         }
 
-        private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
-        {
-            Config.Write();
-        }
-
         private void BSEvents_gameSceneLoaded()
         {
             //Logger.log.Debug("In Map");
@@ -63,7 +61,7 @@ namespace PlayFirst
             confirmed = false;
 
             // Allowed for all modes: Standard, Party, MP, Campaign
-            if (Config.UserConfig.neversubmit_enabled) 
+            if (PluginConfig.Instance.neversubmit_enabled) 
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("All Scores");
                 disable_run = true; // Pause Menu state
@@ -74,14 +72,14 @@ namespace PlayFirst
             }
 
             // Allowed for Solo and MP only
-            if (Config.UserConfig.trollmap_enabled && 
+            if (PluginConfig.Instance.songduration_enabled && 
                 (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || 
                  BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer))
 
             {
                 tm_audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
 
-                if (tm_audiocontroller.songEndTime <= Config.UserConfig.trollmap_threshold)
+                if (tm_audiocontroller.songEndTime <= PluginConfig.Instance.songduration_threshold)
                 {
                     BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Song Duration");
                     disable_run = true; // Pause Menu state
@@ -97,7 +95,7 @@ namespace PlayFirst
             // Disable for Campaign: Probably annoying if user habitually leaves this toggled on
             // Disable for Party: Probably no use case
             // If all score disabled, don't bother with this :)
-            if (Config.UserConfig.mod_enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard) 
+            if (PluginConfig.Instance.mod_enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard) 
             {
                 //Logger.log.Debug("Submit Later enabled");
 
@@ -117,7 +115,7 @@ namespace PlayFirst
             // Allow for all modes: Standard, Party, MP
             // Disable for Campaign: Some missions might have NF as a modifier
             // No need to check if NF is on: Same as just disabling submission whenever player fails LOL
-            if (Config.UserConfig.nfprotection_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
+            if (PluginConfig.Instance.nfprotection_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Better NoFail");
                 disable_run = true; // Pause Menu state
@@ -130,7 +128,7 @@ namespace PlayFirst
         [OnExit]
         public void OnApplicationQuit()
         {
-            Config.Write();
+
         }
     }
 }
