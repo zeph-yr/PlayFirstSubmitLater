@@ -8,28 +8,28 @@ namespace PlayFirst
 {
     public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged
     {
-        private string nf_col;
-        private string tm_col;
-        private string disable_col;
+        private string bnf_col;
+        private string sd_col;
+        private string das_col;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ModifierUI()
         {
-            if (PluginConfig.Instance.nfprotection_enabled)
-                nf_col = "<#00ff00>Better NoFail";
+            if (PluginConfig.Instance.betternofail_enabled)
+                bnf_col = "<#00ff00>Better NoFail";
             else
-                nf_col = "<#ffffff>Better NoFail";
+                bnf_col = "<#ffffff>Better NoFail";
 
             if (PluginConfig.Instance.songduration_enabled)
-                tm_col = "<#ffff00>Minimum Song Duration";
+                sd_col = "<#ffff00>Minimum Song Duration";
             else
-                tm_col = "<#ffffff>Minimum Song Duration";
+                sd_col = "<#ffffff>Minimum Song Duration";
 
-            if (PluginConfig.Instance.neversubmit_enabled)
-                disable_col = "<#ff0000>Disable All Score Submission";
+            if (PluginConfig.Instance.disableallscores_enabled)
+                das_col = "<#ff0000>Disable All Score Submission";
             else
-                disable_col = "<#ffffff>Disable All Score Submission";
+                das_col = "<#ffffff>Disable All Score Submission";
         }
 
         public void Initialize()
@@ -43,33 +43,33 @@ namespace PlayFirst
         }
 
 
-        [UIValue("nf_color")]
-        public string NF_Color
+        [UIValue("bnf_color")]
+        public string BNF_Color
         {
-            get => nf_col;
+            get => bnf_col;
             set
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NF_Color)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BNF_Color)));
             }
         }
 
-        [UIValue("tm_color")]
-        public string TM_Color
+        [UIValue("sd_color")]
+        public string SD_Color
         {
-            get => tm_col;
+            get => sd_col;
             set
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TM_Color)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SD_Color)));
             }
         }
 
-        [UIValue("disable_color")]
-        public string Disable_Color
+        [UIValue("das_color")]
+        public string DAS_Color
         {
-            get => disable_col;
+            get => das_col;
             set
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Disable_Color)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DAS_Color)));
             }
         }
 
@@ -88,9 +88,35 @@ namespace PlayFirst
             Mod_Enabled = value;
         }
 
+        [UIValue("betternofail_enabled")]
+        public bool BetterNoFail_Enabled
+        {
+            get => PluginConfig.Instance.betternofail_enabled;
+            set
+            {
+                PluginConfig.Instance.betternofail_enabled = value;
+            }
+        }
+        [UIAction("set_betternofail_enabled")]
+        void Set_BetterNoFail_Enabled(bool value)
+        {
+            BetterNoFail_Enabled = value;
 
-        [UIValue("trollmap_enabled")]
-        public bool Trollmap_Enabled
+            if (value)
+            {
+                bnf_col = "<#00ff00>Better NoFail";
+                BNF_Color = "changed";
+            }
+
+            else
+            {
+                bnf_col = "<#ffffff>Better NoFail";
+                BNF_Color = "changed";
+            }
+        }
+
+        [UIValue("songduration_enabled")]
+        public bool SongDuration_Enabled
         {
             get => PluginConfig.Instance.songduration_enabled;
             set
@@ -98,21 +124,21 @@ namespace PlayFirst
                 PluginConfig.Instance.songduration_enabled = value;
             }
         }
-        [UIAction("set_trollmap_enabled")]
-        void Set_Trollmap_Enabled(bool value)
+        [UIAction("set_songduration_enabled")]
+        void Set_SongDuration_Enabled(bool value)
         {
-            Trollmap_Enabled = value;
+            SongDuration_Enabled = value;
 
             if (value)
             {
-                tm_col = "<#ffff00>Minimum Song Duration";
-                TM_Color = "changed";
+                sd_col = "<#ffff00>Minimum Song Duration";
+                SD_Color = "changed";
             }
 
             else
             {
-                tm_col = "<#ffffff>Minimum Song Duration";
-                TM_Color = "changed";
+                sd_col = "<#ffffff>Minimum Song Duration";
+                SD_Color = "changed";
             }
         }
 
@@ -120,11 +146,11 @@ namespace PlayFirst
         private int Min_Time => PluginConfig.Instance.songduration_min_time;
         [UIValue("max_time")]
         private int Max_Time => PluginConfig.Instance.songduration_max_time;
+        [UIComponent("songduration_slider")]
+        public SliderSetting SongDuration_Slider;
 
-        [UIComponent("trollmap_slider")]
-        public SliderSetting Trollmap_Slider;
-        [UIValue("trollmap_value")]
-        public float Trollmap_Value
+        [UIValue("songduration_value")]
+        public float SongDuration_Value
         {
             get => PluginConfig.Instance.songduration_threshold;
             set
@@ -132,64 +158,35 @@ namespace PlayFirst
                 PluginConfig.Instance.songduration_threshold = value;
             }
         }
-        [UIAction("set_trollmap_value")]
-        public void Set_Trollmap_Value(float value)
+        [UIAction("set_songduration_value")]
+        public void Set_SongDuration_Value(float value)
         {
-            Trollmap_Value = value;
+            SongDuration_Value = value;
         }
 
-
-        [UIValue("nfprotection_enabled")]
-        public bool Nf_Enabled
+        [UIValue("disableallscores_enabled")]
+        public bool DisableAllScores_Enabled
         {
-            get => PluginConfig.Instance.nfprotection_enabled;
+            get => PluginConfig.Instance.disableallscores_enabled;
             set
             {
-                PluginConfig.Instance.nfprotection_enabled = value;
+                PluginConfig.Instance.disableallscores_enabled = value;
             }
         }
-        [UIAction("set_nfprotection_enabled")]
-        void Set_Nf_Enabled(bool value)
+        [UIAction("set_disableallscores_enabled")]
+        void Set_DisableAllScores_Enabled(bool value)
         {
-            Nf_Enabled = value;
-
+            DisableAllScores_Enabled = value;
             if (value)
             {
-                nf_col = "<#00ff00>Better NoFail";
-                NF_Color = "changed";
+                das_col = "<#ff0000>Disable All Score Submission";
+                DAS_Color = "changed";
             }
 
             else
             {
-                nf_col = "<#ffffff>Better NoFail";
-                NF_Color = "changed";
-            }
-        }
-
-
-        [UIValue("neversubmit_enabled")]
-        public bool Neversubmit_Enabled
-        {
-            get => PluginConfig.Instance.neversubmit_enabled;
-            set
-            {
-                PluginConfig.Instance.neversubmit_enabled = value;
-            }
-        }
-        [UIAction("set_neversubmit_enabled")]
-        void Set_Never_Enabled(bool value)
-        {
-            Neversubmit_Enabled = value;
-            if (value)
-            {
-                disable_col = "<#ff0000>Disable All Score Submission";
-                Disable_Color = "changed";
-            }
-
-            else
-            {
-                disable_col = "<#ffffff>Disable All Score Submission";
-                Disable_Color = "changed";
+                das_col = "<#ffffff>Disable All Score Submission";
+                DAS_Color = "changed";
             }
         }
     }

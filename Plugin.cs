@@ -1,7 +1,6 @@
 ﻿using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
-using IPA.Loader;
 using PlayFirst.Installers;
 using SiraUtil.Zenject;
 using System.Linq;
@@ -61,7 +60,7 @@ namespace PlayFirst
             confirmed = false;
 
             // Allowed for all modes: Standard, Party, MP, Campaign
-            if (PluginConfig.Instance.neversubmit_enabled) 
+            if (PluginConfig.Instance.disableallscores_enabled) 
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("All Scores");
                 disable_run = true; // Pause Menu state
@@ -73,9 +72,7 @@ namespace PlayFirst
 
             // Allowed for Solo and MP only
             if (PluginConfig.Instance.songduration_enabled && 
-                (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || 
-                 BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer))
-
+               (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer))
             {
                 tm_audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
 
@@ -115,13 +112,13 @@ namespace PlayFirst
             // Allow for all modes: Standard, Party, MP
             // Disable for Campaign: Some missions might have NF as a modifier
             // No need to check if NF is on: Same as just disabling submission whenever player fails LOL
-            if (PluginConfig.Instance.nfprotection_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
+            if (PluginConfig.Instance.betternofail_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
             {
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Better NoFail");
                 disable_run = true; // Pause Menu state
                 confirmed = true;
                 
-                Logger.log.Debug("Map failed. NF Protection kicked in");
+                Logger.log.Debug("Map failed. BetterNoFail kicked in");
             }
         }
 
