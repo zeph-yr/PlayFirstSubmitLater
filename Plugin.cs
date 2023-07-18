@@ -11,10 +11,10 @@ namespace PlayFirst
     [Plugin(RuntimeOptions.SingleStartInit)]
     public class Plugin
     {
-        public static bool disable_run = false;
-        public static bool confirmed = false;
-        public static GameObject submitlater;
-        public static AudioTimeSyncController tm_audiocontroller;
+        internal static bool disable_run = false;
+        internal static bool confirmed = false;
+        internal static GameObject submitlater;
+        internal static AudioTimeSyncController tm_audiocontroller;
 
 
         [Init]
@@ -37,6 +37,8 @@ namespace PlayFirst
             //submitlater = new GameObject("SubmitLater");
             //submitlater.AddComponent<SubmitLater>();
             //GameObject.DontDestroyOnLoad(submitlater);
+
+            Donate.Refresh_Text();
         }
 
         // Destroy GameObject when back to menu so it's not running every frame of the menu
@@ -125,7 +127,10 @@ namespace PlayFirst
         [OnExit]
         public void OnApplicationQuit()
         {
-
+            if (submitlater != null)
+            {
+                GameObject.Destroy(submitlater);
+            }
         }
     }
 }

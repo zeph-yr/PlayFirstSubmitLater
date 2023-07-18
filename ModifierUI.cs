@@ -1,12 +1,13 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components.Settings;
+using BeatSaberMarkupLanguage.Parser;
 using System;
 using System.ComponentModel;
 using Zenject;
 
 namespace PlayFirst
 {
-    public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged
+    internal class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged
     {
         private string bnf_col;
         private string sd_col;
@@ -47,7 +48,7 @@ namespace PlayFirst
 
 
         [UIValue("bnf_color")]
-        public string BNF_Color
+        private string BNF_Color
         {
             get => bnf_col;
             set
@@ -57,7 +58,7 @@ namespace PlayFirst
         }
 
         [UIValue("sd_color")]
-        public string SD_Color
+        private string SD_Color
         {
             get => sd_col;
             set
@@ -67,7 +68,7 @@ namespace PlayFirst
         }
 
         [UIValue("das_color")]
-        public string DAS_Color
+        private string DAS_Color
         {
             get => das_col;
             set
@@ -77,7 +78,7 @@ namespace PlayFirst
         }
 
         [UIValue("mod_enabled")]
-        public bool Mod_Enabled
+        private bool Mod_Enabled
         {
             get => PluginConfig.Instance.mod_enabled;
             set
@@ -86,13 +87,13 @@ namespace PlayFirst
             }
         }
         [UIAction("set_mod_enabled")]
-        void Set_Mod_Enabled(bool value)
+        private void Set_Mod_Enabled(bool value)
         {
             Mod_Enabled = value;
         }
 
         [UIValue("betternofail_enabled")]
-        public bool BetterNoFail_Enabled
+        private bool BetterNoFail_Enabled
         {
             get => PluginConfig.Instance.betternofail_enabled;
             set
@@ -101,7 +102,7 @@ namespace PlayFirst
             }
         }
         [UIAction("set_betternofail_enabled")]
-        void Set_BetterNoFail_Enabled(bool value)
+        private void Set_BetterNoFail_Enabled(bool value)
         {
             BetterNoFail_Enabled = value;
 
@@ -118,7 +119,7 @@ namespace PlayFirst
         }
 
         [UIValue("songduration_enabled")]
-        public bool SongDuration_Enabled
+        private bool SongDuration_Enabled
         {
             get => PluginConfig.Instance.songduration_enabled;
             set
@@ -127,7 +128,7 @@ namespace PlayFirst
             }
         }
         [UIAction("set_songduration_enabled")]
-        void Set_SongDuration_Enabled(bool value)
+        private void Set_SongDuration_Enabled(bool value)
         {
             SongDuration_Enabled = value;
 
@@ -151,7 +152,7 @@ namespace PlayFirst
         public SliderSetting SongDuration_Slider;
 
         [UIValue("songduration_value")]
-        public float SongDuration_Value
+        private float SongDuration_Value
         {
             get => PluginConfig.Instance.songduration_threshold;
             set
@@ -160,13 +161,13 @@ namespace PlayFirst
             }
         }
         [UIAction("set_songduration_value")]
-        public void Set_SongDuration_Value(float value)
+        private void Set_SongDuration_Value(float value)
         {
             SongDuration_Value = value;
         }
 
         [UIValue("disableallscores_enabled")]
-        public bool DisableAllScores_Enabled
+        private bool DisableAllScores_Enabled
         {
             get => PluginConfig.Instance.disableallscores_enabled;
             set
@@ -175,7 +176,7 @@ namespace PlayFirst
             }
         }
         [UIAction("set_disableallscores_enabled")]
-        void Set_DisableAllScores_Enabled(bool value)
+        private void Set_DisableAllScores_Enabled(bool value)
         {
             DisableAllScores_Enabled = value;
             if (value)
@@ -189,5 +190,44 @@ namespace PlayFirst
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DAS_Color)));
             }
         }
+
+
+        //===============================================================
+
+        [UIValue("open_donate_text")]
+        private string Open_Donate_Text => Donate.donate_clickable_text;
+
+        [UIValue("open_donate_hint")]
+        private string Open_Donate_Hint => Donate.donate_clickable_hint;
+
+        [UIParams]
+        private BSMLParserParams parserParams;
+
+        [UIAction("open_donate_modal")]
+        private void Open_Donate_Modal()
+        {
+            parserParams.EmitEvent("hide_donate_modal");
+            Donate.Refresh_Text();
+            parserParams.EmitEvent("show_donate_modal");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Text_Dynamic)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Hint_Dynamic)));
+        }
+
+        private void Open_Donate_Browser()
+        {
+            Donate.Open_Donate_Browser();
+        }
+
+        [UIValue("donate_modal_text_static_1")]
+        private string Donate_Modal_Text_Static_1 => Donate.donate_modal_text_static_1;
+
+        [UIValue("donate_modal_text_static_2")]
+        private string Donate_Modal_Text_Static_2 => Donate.donate_modal_text_static_2;
+
+        [UIValue("donate_modal_text_dynamic")]
+        private string Donate_Modal_Text_Dynamic => Donate.donate_modal_text_dynamic;
+
+        [UIValue("donate_modal_hint_dynamic")]
+        private string Donate_Modal_Hint_Dynamic => Donate.donate_modal_hint_dynamic;
     }
 }
