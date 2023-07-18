@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace PlayFirst
 {
-    class CancelButtonViewController
+    internal class CancelButtonViewController
     {
-        public static CancelButtonViewController _instance { get; private set; }
+        internal static CancelButtonViewController _instance { get; private set; }
         
-        public static CancelButtonViewController Instance
+        internal static CancelButtonViewController Instance
         {
             get
             {
@@ -18,10 +18,10 @@ namespace PlayFirst
             }
         }
 
-        public FloatingScreen cancelbutton_screen;
-        protected CancelButtonView cancelbutton_view;
+        private FloatingScreen cancelbutton_screen;
+        private CancelButtonView cancelbutton_view;
 
-        public void ShowButton()
+        internal void ShowButton()
         {
             if (cancelbutton_screen == null)
             {
@@ -45,7 +45,7 @@ namespace PlayFirst
             cancelbutton_screen.gameObject.SetActive(false);
         }
 
-        public FloatingScreen CreateFloatingScreen()
+        private FloatingScreen CreateFloatingScreen()
         {
             Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f);
             rotation *= Quaternion.Euler(Vector3.up * 90);
@@ -88,7 +88,6 @@ namespace PlayFirst
         // For Return to Menu from Pause Menu
         private void BSEvents_menuSceneLoaded()
         {
-            //SubmitLater.paused_yet = true;
             cancelbutton_screen.gameObject.SetActive(false);
         }
     }

@@ -80,10 +80,10 @@ namespace PlayFirst
         [UIValue("mod_enabled")]
         private bool Mod_Enabled
         {
-            get => PluginConfig.Instance.mod_enabled;
+            get => PluginConfig.Instance.submitlater_enabled;
             set
             {
-                PluginConfig.Instance.mod_enabled = value;
+                PluginConfig.Instance.submitlater_enabled = value;
             }
         }
         [UIAction("set_mod_enabled")]

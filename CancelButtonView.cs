@@ -5,20 +5,19 @@ using TMPro;
 namespace PlayFirst
 {
     [HotReload(@"CancelButtonView.bsml")]
-    public partial class CancelButtonView : BSMLAutomaticViewController
+    internal partial class CancelButtonView : BSMLAutomaticViewController
     {
         [UIComponent("cancelbutton")]
         private TextMeshProUGUI cancelbutton_text;
 
         [UIAction("disablescore")]
-        protected void ClickButtonAction()
+        private void ClickButtonAction()
         {
             if (!Plugin.disable_run && !Plugin.confirmed)
             {
                 Plugin.disable_run = true;
                 UpdateText();
             }
-
             else if (Plugin.disable_run && !Plugin.confirmed)
             {
                 Plugin.confirmed = true;
@@ -28,7 +27,7 @@ namespace PlayFirst
             }
         }
 
-        public void UpdateText()
+        internal void UpdateText()
         {
             if (Plugin.disable_run && !Plugin.confirmed)
             {

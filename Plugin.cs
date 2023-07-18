@@ -13,8 +13,8 @@ namespace PlayFirst
     {
         internal static bool disable_run = false;
         internal static bool confirmed = false;
-        internal static GameObject submitlater;
-        internal static AudioTimeSyncController tm_audiocontroller;
+        private static GameObject submitlater;
+        private static AudioTimeSyncController sd_audiocontroller;
 
 
         [Init]
@@ -60,6 +60,7 @@ namespace PlayFirst
             // Pause Menu state. Always set to false at start of any map.
             disable_run = false;
             confirmed = false;
+            CancelButtonViewController.Instance.ShowButton();
 
             // Allowed for all modes: Standard, Party, MP, Campaign
             if (PluginConfig.Instance.disableallscores_enabled) 
@@ -68,23 +69,24 @@ namespace PlayFirst
                 disable_run = true; // Pause Menu state
                 confirmed = true;
 
-                Logger.log.Debug("All submission disabled");
+                Logger.log.Debug("All scores disabled");
                 return;
             }
 
             // Allowed for Solo and MP only
+            // Disable for Campaign: Probably annoying if user habitually leaves this toggled on
             if (PluginConfig.Instance.songduration_enabled && 
                (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer))
             {
-                tm_audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
+                sd_audiocontroller = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().LastOrDefault();
 
-                if (tm_audiocontroller.songEndTime <= PluginConfig.Instance.songduration_threshold)
+                if (sd_audiocontroller.songEndTime <= PluginConfig.Instance.songduration_threshold)
                 {
                     BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("Song Duration");
                     disable_run = true; // Pause Menu state
                     confirmed = true;
 
-                    Logger.log.Debug("Short map duration");
+                    Logger.log.Debug("Score disabled by Song Duration");
                     return;
                 }
             }
@@ -94,7 +96,7 @@ namespace PlayFirst
             // Disable for Campaign: Probably annoying if user habitually leaves this toggled on
             // Disable for Party: Probably no use case
             // If all score disabled, don't bother with this :)
-            if (PluginConfig.Instance.mod_enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard) 
+            if (PluginConfig.Instance.submitlater_enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard)
             {
                 //Logger.log.Debug("Submit Later enabled");
 
@@ -111,7 +113,7 @@ namespace PlayFirst
         {
             //Logger.log.Debug("Map Failed");
 
-            // Allow for all modes: Standard, Party, MP
+            // Allow for: Standard, Party, MP
             // Disable for Campaign: Some missions might have NF as a modifier
             // No need to check if NF is on: Same as just disabling submission whenever player fails LOL
             if (PluginConfig.Instance.betternofail_enabled && BS_Utils.Plugin.LevelData.Mode != BS_Utils.Gameplay.Mode.Mission)
@@ -120,7 +122,7 @@ namespace PlayFirst
                 disable_run = true; // Pause Menu state
                 confirmed = true;
                 
-                Logger.log.Debug("Map failed. BetterNoFail kicked in");
+                Logger.log.Debug("Score disabled by Better NoFail");
             }
         }
 

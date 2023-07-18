@@ -9,7 +9,7 @@ namespace PlayFirst
     {
         public static PluginConfig Instance { get; set; }
 
-        public virtual bool mod_enabled { get; set; } = true;
+        public virtual bool submitlater_enabled { get; set; } = true;
         public virtual bool betternofail_enabled { get; set; } = true;
         public virtual bool disableallscores_enabled { get; set; } = false;
 
