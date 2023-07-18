@@ -19,10 +19,10 @@ namespace PlayFirst
         public virtual int songduration_min_time { get; set; } = 0;
         public virtual int songduration_max_time { get; set; } = 120;
 
-        public virtual bool always_show_on_pause { get; set; } = true;
-        public virtual bool moveable_panel { get; set; } = false;
         public virtual Vector3 position { get; set; } = CancelButtonViewController.Instance.position;
         public virtual Quaternion rotation { get; set; } = CancelButtonViewController.Instance.rotation;
+        public virtual bool always_show_on_pause { get; set; } = true;
+        public virtual bool moveable_panel { get; set; } = false;
         public virtual bool reset_panel { get; set; } = false;
 
 
