@@ -23,9 +23,14 @@ namespace PlayFirst
             }
         }
 
-        internal static void Open_Donate_Browser()
+        internal static void Patreon()
         {
             Process.Start("https://www.patreon.com/xeph_yr");
+        }
+
+        internal static void Kofi()
+        {
+            Process.Start("https://ko-fi.com/zeph_yr");
         }
 
         private static async Task Get_Donate_Modal_Text()

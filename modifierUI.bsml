@@ -2,15 +2,20 @@
 	<settings-container child-control-width='true' child-expand-width='true' size-delta-y='-15'>
 		<checkbox-setting value ='mod_enabled' on-change='set_mod_enabled' text='Submit Later' hover-hint='Decide score submission when map ends (Solo only)'></checkbox-setting>
 		<checkbox-setting value ='betternofail_enabled' on-change='set_betternofail_enabled' text='~bnf_color' rich-text='true' hover-hint='Prevent failed NF scores from submitting'></checkbox-setting>
+		<!-- 
 		<checkbox-setting text='Pays your credit card bills in-map' rich-text='true' hover-hint='Have you paid your bills?'></checkbox-setting>
 		<checkbox-setting text='Files your taxes from the leaderboard' rich-text='true' hover-hint='Have you filed your taxes?'></checkbox-setting>
+		-->
 		<checkbox-setting value ='songduration_enabled' on-change='set_songduration_enabled' text='~sd_color' hover-hint='Prevent scores on maps shorter than minimum duration from submitting'></checkbox-setting>
 		<slider-setting id='songduration_slider' value ='songduration_value' on-change='set_songduration_value' text='-----' increment='1' min='~min_time' max='~max_time' font-color='#00000000' hover-hint='Duration in seconds'></slider-setting>
 		<checkbox-setting value='disableallscores_enabled' on-change='set_disableallscores_enabled' text='~das_color' rich-text='true' hover-hint='Are you sure?'></checkbox-setting>
 	</settings-container>
 	<vertical pad-top='40'>
 		<horizontal child-expand-width='true'>
+			<!--
 			<text text='PlayFirst(Pay[EvenMore]Later) v$1.0.0 by Zephyr#9125' font-color='#ff0080ff' font-size='3' align='Right'></text>
+			-->
+			<text text='PlayFirst(SubmitLater) v2.0.0 by Zephyr9125' font-color='#ff0080ff' font-size='3' align='Right' hover-hint='https://github.com/zeph-yr/PlayFirstSubmitLater'></text>
 			<clickable-text text='~open_donate_text' rich-text='true' font-color='#ff0080ff' align='Left' click-event='show_donate_modal' on-click='open_donate_modal' hover-hint='~open_donate_hint'/>
 		</horizontal>
 		<modal id='donate_modal' show-event='show_donate_modal' hide-event='hide_donate_modal' click-off-closes='true' move-to-center='true' size-delta-x='60' size-delta-y='60'>
@@ -20,7 +25,8 @@
 						<text text='~donate_modal_text_static_1' word-wrapping='true' align='Center' rich-text='true'></text>
 					</horizontal>
 					<horizontal preferred-width='56'>
-						<primary-button text='Open Patreon' font-size='3' align='Center' on-click='Open_Donate_Browser' hover-hint='Link opens in web broswer'/>
+						<primary-button text='Patreon' font-size='3' align='Center' on-click='Open_Donate_Patreon' hover-hint='Link opens in web broswer'/>
+						<primary-button text='Kofi' font-size='3' align='Center' on-click='Open_Donate_Kofi' hover-hint='Link opens in web broswer'/>
 						<text text='~donate_modal_text_static_2' word-wrapping='true' align='Right' rich-text='true'></text>
 					</horizontal>
 				</vertical>
