@@ -60,7 +60,11 @@ namespace PlayFirst
             // Pause Menu state. Always set to false at start of any map.
             disable_run = false;
             confirmed = false;
-            CancelButtonViewController.Instance.ShowButton();
+
+            if (PluginConfig.Instance.always_show_on_pause)
+            {
+                CancelButtonViewController.Instance.ShowButton();
+            }
 
             // Allowed for all modes: Standard, Party, MP, Campaign
             if (PluginConfig.Instance.disableallscores_enabled) 

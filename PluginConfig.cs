@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using IPA.Config.Stores;
+using UnityEngine;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 
@@ -17,6 +18,12 @@ namespace PlayFirst
         public virtual float songduration_threshold { get; set; } = 60f;
         public virtual int songduration_min_time { get; set; } = 0;
         public virtual int songduration_max_time { get; set; } = 120;
+
+        public virtual bool always_show_on_pause { get; set; } = true;
+        public virtual bool moveable_panel { get; set; } = false;
+        public virtual Vector3 position { get; set; } = CancelButtonViewController.Instance.position;
+        public virtual Quaternion rotation { get; set; } = CancelButtonViewController.Instance.rotation;
+        public virtual bool reset_panel { get; set; } = false;
 
 
         /// <summary>

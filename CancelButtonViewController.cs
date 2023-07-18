@@ -21,6 +21,9 @@ namespace PlayFirst
         private FloatingScreen cancelbutton_screen;
         private CancelButtonView cancelbutton_view;
 
+        internal readonly Vector3 position = new Vector3(-0.08f, 1.05f, 1.95f);
+        internal readonly Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f) * Quaternion.Euler(Vector3.up * 90);
+
         internal void ShowButton()
         {
             if (cancelbutton_screen == null)
@@ -47,13 +50,7 @@ namespace PlayFirst
 
         private FloatingScreen CreateFloatingScreen()
         {
-            Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f);
-            rotation *= Quaternion.Euler(Vector3.up * 90);
-
-            FloatingScreen screen = FloatingScreen.CreateFloatingScreen(
-                new Vector2(80, 10), false,
-                new Vector3(-0.08f, 1.05f, 1.95f),
-                rotation);
+            FloatingScreen screen = FloatingScreen.CreateFloatingScreen(new Vector2(80, 10), PluginConfig.Instance.moveable_panel, position, rotation);
 
             // Notes: If no text, this size and position is perfect for the button alone
             // Vector2(34,10)
@@ -64,8 +61,36 @@ namespace PlayFirst
             // Position: left/right, up/down, in/out
             // Rotation: x, y, z, w (don't modify these values directly, very complex)
 
+            if (PluginConfig.Instance.moveable_panel)
+            {
+                screen.HandleSide = FloatingScreen.Side.Right;
+                screen.ShowHandle = true;
+                screen.HighlightHandle = true;
+                screen.handle.transform.localScale = Vector3.one * 2.0f;
+                screen.handle.transform.localPosition = new Vector3(40.0f, 0.0f, 0.0f);
+                screen.HandleReleased += Screen_HandleReleased;
+            }
+
+            screen.ScreenPosition = PluginConfig.Instance.position;
+            screen.ScreenRotation = PluginConfig.Instance.rotation;
+
+            if (PluginConfig.Instance.reset_panel)
+            {
+                screen.ScreenPosition = position;
+                screen.ScreenRotation = rotation;
+
+                PluginConfig.Instance.position = position;
+                PluginConfig.Instance.rotation = rotation;
+            }
+
             GameObject.DontDestroyOnLoad(screen.gameObject);
             return screen;
+        }
+
+        private void Screen_HandleReleased(object sender, FloatingScreenHandleEventArgs e)
+        {
+            PluginConfig.Instance.position = cancelbutton_screen.ScreenPosition;
+            PluginConfig.Instance.rotation = cancelbutton_screen.ScreenRotation;
         }
 
         private void SongPaused()
