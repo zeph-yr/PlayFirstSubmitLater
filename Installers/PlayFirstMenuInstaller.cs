@@ -2,7 +2,7 @@
 
 namespace PlayFirst.Installers
 {
-    internal class PlayFirstMenuInstaller : Installer
+    internal sealed class PlayFirstMenuInstaller : Installer
     {
         public override void InstallBindings()
         {

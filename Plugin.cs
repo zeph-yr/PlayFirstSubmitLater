@@ -9,7 +9,7 @@ using UnityEngine;
 namespace PlayFirst
 {
     [Plugin(RuntimeOptions.SingleStartInit)]
-    public class Plugin
+    public sealed class Plugin
     {
         internal static bool disable_run = false;
         internal static bool confirmed = false;
@@ -133,6 +133,10 @@ namespace PlayFirst
         [OnExit]
         public void OnApplicationQuit()
         {
+            BS_Utils.Utilities.BSEvents.gameSceneLoaded -= BSEvents_gameSceneLoaded;
+            BS_Utils.Utilities.BSEvents.energyReachedZero -= BSEvents_energyReachedZero;
+            BS_Utils.Utilities.BSEvents.menuSceneLoaded -= BSEvents_menuSceneLoaded;
+
             if (submitlater != null)
             {
                 GameObject.Destroy(submitlater);

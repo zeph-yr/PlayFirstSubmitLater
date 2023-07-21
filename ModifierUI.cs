@@ -7,7 +7,7 @@ using Zenject;
 
 namespace PlayFirst
 {
-    internal class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged
+    internal sealed class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged
     {
         private string bnf_col;
         private string sd_col;
@@ -15,7 +15,7 @@ namespace PlayFirst
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ModifierUI()
+        private ModifierUI()
         {
             if (PluginConfig.Instance.betternofail_enabled)
                 bnf_col = "<#00ff00>Better NoFail";

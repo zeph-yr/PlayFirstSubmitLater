@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PlayFirst
 {
-    internal class SubmitLater : MonoBehaviour
+    internal sealed class SubmitLater : MonoBehaviour
     {
         private static float pausetime = 0.1f;
         private static bool paused_yet = false;
@@ -11,7 +11,7 @@ namespace PlayFirst
         private static AudioTimeSyncController audiocontroller;
         private static PauseController pausecontroller;
 
-        public void Awake()
+        private void Awake()
         {
             paused_yet = false;
 
@@ -23,7 +23,7 @@ namespace PlayFirst
         }
 
         // Auto Pause at very end of map so you can decide
-        public void LateUpdate()
+        private void LateUpdate()
         {
             if (PluginConfig.Instance.submitlater_enabled && !paused_yet)
             {

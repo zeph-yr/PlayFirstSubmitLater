@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace PlayFirst
 {
-    internal class Donate
+    internal static class Donate
     {
         internal static string donate_clickable_text = "<#00000000>------------<#ff0080ff><size=85%>♡ Donate";
         internal static string donate_clickable_hint = "If you'd like to support my work";
@@ -14,6 +14,7 @@ namespace PlayFirst
 
         internal static string donate_modal_text_dynamic = "";
         internal static string donate_modal_hint_dynamic = "";
+        internal static string donate_update_dynamic = "";
 
         internal static void Refresh_Text()
         {
@@ -38,6 +39,7 @@ namespace PlayFirst
             //Plugin.Log.Debug("reply: " + donate_modal_text_dynamic);
             string reply_text = "Loading...";
             string reply_hint = "";
+            string reply_update = "";
 
             using (WebClient client = new WebClient())
             {
@@ -58,6 +60,14 @@ namespace PlayFirst
                 {
                     Logger.log.Debug("Failed to fetch Donate info");
                 }
+                try
+                {
+                    reply_update = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/whatsnew.txt");
+                }
+                catch
+                {
+                    Logger.log.Debug("Failed to fetch Donate info");
+                }
             }
 
             donate_modal_text_dynamic = reply_text;
@@ -70,6 +80,13 @@ namespace PlayFirst
                 //Plugin.Log.Debug("reply: " + reply_hint);
                 //Plugin.Log.Debug("start: " + hint_start + " end: " + hint_end);
                 donate_modal_hint_dynamic = reply_hint.Substring(hint_start + 11, hint_end - hint_start - 11); // Yes. And no, it's not wrong.
+            }
+
+            int update_start = reply_update.IndexOf("[ACCESSABILITY]");
+            int update_end = reply_update.IndexOf("###", update_start);
+            if (update_start != -1)
+            {
+                donate_update_dynamic = reply_update.Substring(update_start + 15, update_end - update_start - 15);
             }
         }
     }

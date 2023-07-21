@@ -18,6 +18,9 @@
 			<text text='PlayFirst(SubmitLater) v2.0.0 by Zephyr9125' font-color='#ff0080ff' font-size='3' align='Right' hover-hint='Instructions at github.com/zeph-yr/PlayFirstSubmitLater'></text>
 			<clickable-text text='~open_donate_text' rich-text='true' font-color='#ff0080ff' align='Left' click-event='show_donate_modal' on-click='open_donate_modal' hover-hint='~open_donate_hint'/>
 		</horizontal>
+		<horizontal>
+			<text text='~donate_update_dynamic' word-wrapping='true' rich-text='true' font-color='#00ff99ff' align='Center'></text>
+		</horizontal>
 		<modal id='donate_modal' show-event='show_donate_modal' hide-event='hide_donate_modal' click-off-closes='true' move-to-center='true' size-delta-x='60' size-delta-y='60'>
 			<vertical>
 				<vertical pad-top='3' vertical-fit='PreferredSize' preferred-height='22' hover-hint='~donate_modal_hint_dynamic'>

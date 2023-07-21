@@ -5,7 +5,7 @@
     "author": "Zephyr",
     "version": "2.0.0",
     "description": "Allows for automated elective score submission, including preventing submission of failed NF scores",
-    "gameVersion": "1.31.0",
+    "gameVersion": "1.31.1",
     "dependsOn": {
         "BSIPA": "^4.3.0",
         "BS Utils": "^1.12.4",

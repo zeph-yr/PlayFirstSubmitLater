@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PlayFirst")]
 [assembly: AssemblyDescription("PlayFirst(SubmitLater)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("xephai.com")]
+[assembly: AssemblyCompany("www.xephai.com")]
 [assembly: AssemblyProduct("PlayFirst(SubmitLater)")]
 [assembly: AssemblyCopyright("Copyright © 2023 Zephyr")]
 [assembly: AssemblyTrademark("")]

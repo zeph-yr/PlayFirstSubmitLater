@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PlayFirst
 {
-    internal class CancelButtonViewController
+    internal sealed class CancelButtonViewController
     {
         internal static CancelButtonViewController _instance { get; private set; }
         
