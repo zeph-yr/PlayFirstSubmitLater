@@ -4,7 +4,7 @@
 Ever received trolly requests that you regret entertaining and now you have crap all over your ScoreSaber? Or is 14star OV forever dragging down your rank acc because your friends ran the map in MP (back in the day) while you went to eat? Now you can stop it from happening again! 
 This mod means you can play all the shitmaps and practice high stars with reckless abandon. No longer will you scream when finally pass OV but it was in practice mode or when you didn't manage to click Pause fast enough to quit a bad map.
 
-## New Features for v2.0.0. (1.31.0+ Only)
+## New Features for v2.0.0+ (1.29.0+ Only)
 - Option to always show and use Pause Menu UI, independent of any toggles
 - Option to reposition Pause Menu UI
 
