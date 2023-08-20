@@ -3,7 +3,7 @@
     "id": "PlayFirst",
     "name": "PlayFirst",
     "author": "Zephyr",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Allows for automated elective score submission, including preventing submission of failed NF scores",
     "gameVersion": "1.21.0",
     "dependsOn": {

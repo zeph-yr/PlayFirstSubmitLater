@@ -45,27 +45,29 @@ namespace PlayFirst
             {
                 try
                 {
-                    reply_text = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/README.md");
+                    reply_text = await client.DownloadStringTaskAsync("https://www.xephai.com/pf/?a=PLAYFIRST&b=text");
                 }
                 catch
                 {
-                    reply_text = "Loading failed. Pls ping Zeph on Discord, TY!";
+                    reply_text = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/README.md");
                     Logger.log.Debug("Failed to fetch Donate info");
                 }
                 try
+                {
+                    reply_hint = await client.DownloadStringTaskAsync("https://www.xephai.com/pf/?a=PLAYFIRST&b=hint");
+                }
+                catch
                 {
                     reply_hint = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/hoverhints.txt");
-                }
-                catch
-                {
                     Logger.log.Debug("Failed to fetch Donate info");
                 }
                 try
                 {
-                    reply_update = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/whatsnew.txt");
+                    reply_update = await client.DownloadStringTaskAsync("https://www.xephai.com/pf/?a=PLAYFIRST&b=update");
                 }
                 catch
                 {
+                    reply_update = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/whatsnew.txt");
                     Logger.log.Debug("Failed to fetch Donate info");
                 }
             }
@@ -82,11 +84,11 @@ namespace PlayFirst
                 donate_modal_hint_dynamic = reply_hint.Substring(hint_start + 11, hint_end - hint_start - 11); // Yes. And no, it's not wrong.
             }
 
-            int update_start = reply_update.IndexOf("[ACCESSABILITY]");
+            int update_start = reply_update.IndexOf("[PLAYFIRST]");
             int update_end = reply_update.IndexOf("###", update_start);
             if (update_start != -1)
             {
-                donate_update_dynamic = reply_update.Substring(update_start + 15, update_end - update_start - 15);
+                donate_update_dynamic = reply_update.Substring(update_start + 11, update_end - update_start - 11);
             }
         }
     }
