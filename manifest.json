@@ -3,14 +3,14 @@
     "id": "PlayFirst",
     "name": "PlayFirst",
     "author": "Zephyr",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "description": "Allows for automated elective score submission, including preventing submission of failed NF scores",
-    "gameVersion": "1.21.0",
+    "gameVersion": "1.31.0",
     "dependsOn": {
-        "BSIPA": "^4.2.2",
-        "BS Utils": "^1.12.0",
-        "BeatSaberMarkupLanguage": "^1.6.8",
-        "SiraUtil": "^3.1.2"
+        "BSIPA": "^4.3.0",
+        "BS Utils": "^1.12.4",
+        "BeatSaberMarkupLanguage": "^1.7.6",
+        "SiraUtil": "^3.1.3"
     },
     "links": {
         "donate": "http://www.paypal.me/zeph3yr"

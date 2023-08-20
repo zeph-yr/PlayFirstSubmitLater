@@ -15,7 +15,7 @@
 			<!--
 			<text text='PlayFirst(Pay[EvenMore]Later) v$1.0.0 by Zephyr#9125' font-color='#ff0080ff' font-size='3' align='Right'></text>
 			-->
-			<text text='PlayFirst(SubmitLater) v2.1.0 by Zephyr9125' font-color='#ff0080ff' font-size='3' align='Right' hover-hint='Instructions at github.com/zeph-yr/PlayFirstSubmitLater'></text>
+			<text text='PlayFirst(SubmitLater) v2.1.1 by Zephyr9125' font-color='#ff0080ff' font-size='3' align='Right' hover-hint='Instructions at github.com/zeph-yr/PlayFirstSubmitLater'></text>
 			<clickable-text text='~open_donate_text' rich-text='true' font-color='#ff0080ff' align='Left' click-event='show_donate_modal' on-click='open_donate_modal' hover-hint='~open_donate_hint'/>
 		</horizontal>
 		<horizontal>
